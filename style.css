@@ -3,8 +3,7 @@
     margin: 0;
     /*Colores*/
     --color-primary: #e25385;
-    --color-primary-dark: #a31430;
-    --color-primary-light: #fba8c1;
+    --color-on-primary: #ffffff;
     --color-secondary: #a8cdf7;
     --color-on-secondary: black;
 }
@@ -25,12 +24,14 @@ header {
 }
 
 .nav a{
-    background-color: var(--color-primary-light);
-    color: black;
+    color: var(--color-on-primary);
+    text-decoration: .1px underline transparent;
+    transition: text-decoration .5s;
 }
 
 .nav a:hover {
-    color:#a31430;
+    text-decoration: 2.5px underline var(--color-on-primary);
+    color: var(--color-on-primary);
 }
 
 
@@ -41,4 +42,15 @@ header {
     padding: 5px 10px;
     border: none;
     height:fit-content;
+}
+
+h1, h2 {
+    text-decoration: 3px underline var(--color-secondary);
+}
+
+footer {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    text-align: center;
+    padding: 10px;
 }
