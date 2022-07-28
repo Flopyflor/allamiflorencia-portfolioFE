@@ -1,0 +1,19 @@
+{
+  "name": "portfoliofrontend",
+  "version": "1.0.0",
+  "description": "\"mi portfolio\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -p 8436"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flopyflor/PortfolioFrontEnd.git"
+  },
+  "author": "Florencia Allami",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Flopyflor/PortfolioFrontEnd/issues"
+  },
+  "homepage": "https://github.com/Flopyflor/PortfolioFrontEnd#readme"
+}

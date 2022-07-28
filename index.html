@@ -8,8 +8,12 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <script src="/js/index.js"></script>
+
+
 </head>
-<body>
+<body id="bootstrap-overrides">
     <header class="container-fluid">
         <nav class="nav">            
             <a class="nav-link active" aria-current="page" href="#presentación">Presentación</a>
@@ -19,63 +23,141 @@
             <a class="nav-link" href="#contacto">Contacto</a>
           </nav>
 
-        <button type="button" class="btn btn-primary" id="log-in">log in</button>
+        <span type="button" href="/log-in.html" id="log-in">log in</span>
     </header>
     <main class="container fluid">
+
         <section id="presentación">
             <h1>Florencia Allami</h1>
-            <p>Hola!!! Soy Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, exercitationem explicabo magni optio, quasi consectetur libero deleniti assumenda enim maiores ratione eveniet laboriosam earum. Veniam quae natus quisquam cupiditate ad!</p>
+            <p>Soy una estudiante universitaria de 18 años que busca constantemente aumentar su repertorio de habilidades.</p>
         </section>
+
         <section id="educación">
             <h2>Educación</h2>
-        
-            <div class="row row-cols-2 row-cols-sm-3 g-4">
+
+            <div class="grid-container">
+              <div class="row row-cols-2 row-cols-sm-3 g-4">
                 <div class="col">
-                  <div class="card">
-                    <img src="assets/images/bs-images/img-2x1.png" class="card-img-top" alt="card-grid-image">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <div class="card shadow-sm h-100">
+                    <img src="/imgs/ILSE-logo.jpg" class="card-logo" alt="">
+                    <div class="card-body flex-shrink-1">
+                      <h5 class="card-title">ILSE</h5>
+                      <p class="card-text">Escuela Secundaria nacional dependiente de la UBA.</p>
                     </div>
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card">
-                    <img src="assets/images/bs-images/img-2x1.png" class="card-img-top" alt="card-grid-image">
+                  <div class="card shadow-sm h-100">
+                    <img src="/imgs/logocodoacodo.png" class="card-logo" alt="">
                     <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <h5 class="card-title">Codo a Codo</h5>
+                      <p class="card-text">Parte de la agencia "Aprendizaje a lo largo de la vida", dependiente de la ciudad Autónoma de Buenos Aires.</p>
                     </div>
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card">
-                    <img src="assets/images/bs-images/img-2x1.png" class="card-img-top" alt="card-grid-image">
+                  <div class="card shadow-sm h-100">
+                    <img src="/imgs/UBA-logo.png" class="card-logo" alt="">
                     <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                      <h5 class="card-title">UBA</h5>
+                      <p class="card-text">Actualmente cursando el segundo semestre del CBC en la UBA, con perspectiva de empezar la carrera de Licenciatura en Ciencia de Datos.</p>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+        
         </section>
+        
         <section id="habilidades">
             <h2>Habilidades</h2>
-            <div class="progress">
-                <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 35%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+
+            <div class="grid-container">
+              <div class="row row-cols-2 row-cols-sm-3 g-4">
+                <div class="col">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">Habilidad</h5>
+                      <div class="progress">
+                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 35%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">Habilidad</h5>
+                      <div class="progress">
+                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 35%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div class="col">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">Habilidad</h5>
+                      <div class="progress">
+                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 35%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
+            </div>
         </section>
+        
         <section id="proyectos">
             <h2>Proyectos</h2>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit a error accusantium natus magni optio sapiente est iste fuga, aperiam repellat, quo vel deleniti perspiciatis maiores rem, mollitia et ad.</p>
-        </section>
+
+            <div class="grid-container">
+              <div class="row row-cols-2 row-cols-sm-3 g-4">
+                <div class="col">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">Proyecto</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">Proyecto</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div class="col">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">Proyecto</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        
         <section id="contacto">
             <h2>Contacto</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem neque facere excepturi in dicta sapiente beatae aliquid deleniti iste vitae, pariatur quisquam ratione, harum aut officiis! Recusandae similique molestiae labore.</p>
+            <p>Iconos en fontawesome.</p>
         </section>
     </main>
     <footer class="container-fluid">
-        footer
+        footer. Más iconos en fontawesome de contacto.
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -48,6 +48,15 @@ h1, h2 {
     text-decoration: 3px underline var(--color-secondary);
 }
 
+.card-logo {
+    width: 200px;
+    margin: auto auto;
+}
+
+#bootstrap-overrides .grid-container .row{
+    grid-template-rows: max-content;
+}
+
 footer {
     background-color: var(--color-primary);
     color: var(--color-on-primary);
