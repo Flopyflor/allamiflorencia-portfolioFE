@@ -1,1 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    /*Colores*/
+    --color-primary: #e25385;
+    --color-on-primary: #ffffff;
+    --color-secondary: #a8cdf7;
+    --color-on-secondary: black;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-primary);
+    padding: 7px 5px;
+    align-items: center;
+}
+
+.nav {
+    list-style: none;
+    display: flex;
+    column-gap: 7px;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+.nav a{
+    color: var(--color-on-primary);
+    text-decoration: .1px underline transparent;
+    transition: text-decoration .5s;
+}
+
+.nav a:hover {
+    text-decoration: 2.5px underline var(--color-on-primary);
+    color: var(--color-on-primary);
+}
+
+
+#log-in {
+    border-radius: 10px;
+    background-color: var(--color-secondary);
+    color: var(--color-on-secondary);
+    padding: 5px 10px;
+    border: none;
+    height:fit-content;
+}
+
+h1, h2 {
+    text-decoration: 3px underline var(--color-secondary);
+}
+
+.card-logo {
+    width: 200px;
+    margin: auto auto;
+}
+
+#bootstrap-overrides .grid-container .row{
+    grid-template-rows: max-content;
+}
+
+footer {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    text-align: center;
+    padding: 10px;
+}
