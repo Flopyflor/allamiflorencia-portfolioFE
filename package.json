@@ -1,6 +1,17 @@
 {
   "name": "portfolio-front-end",
-  "version": "0.0.0",
+  "version": "0.0.0",  
+  "description": "el portfolio profesional de Florencia Allami",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flopyflor/PortfolioFrontEnd.git"
+  },
+  "author": "Florencia Allami",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Flopyflor/PortfolioFrontEnd/issues"
+  },
+  "homepage": "https://github.com/Flopyflor/PortfolioFrontEnd#readme",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
