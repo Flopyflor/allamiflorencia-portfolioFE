@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { Section } from '../Interfaces/Section';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class PersonalInfoService {
 
   constructor(private http : HttpClient) { }
 
-  get():Observable<Object> {
-    return this.http.get(this.url);
+  get():Observable<Section[]> {
+    return this.http.get<Section[]>(this.url);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonalInfoService } from '../services/personal-info.service';
+import { Section } from '../Interfaces/Section';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +16,7 @@ export class MainComponent implements OnInit {
     'bio': 'Soy una estudiante universitaria de 18 años que busca constantemente aumentar su repertorio de habilidades.'
   }
 
-  sections: any;
+  sections: Section[] = [{titulo: "", tipo: "", data: [{titulo: "", link: "", descripcion: ""}]}];
 
   constructor( private DB:PersonalInfoService) { }
 
@@ -27,7 +28,7 @@ export class MainComponent implements OnInit {
 
   getTitles(): string[] {
     var titles = [];
-    for(var grupo of this.sections) {
+    for(var grupo of this.sections!) {
       titles.push(grupo.titulo);
     }
     return titles;
