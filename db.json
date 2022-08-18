@@ -31,5 +31,10 @@
     "descripcion": "bla bla",
     "link": "#"}
   ]}
-]
+],
+
+"person": {
+  "nombre": "Florencia Allami",
+  "bio": "Soy una estudiante universitaria de 18 años que busca constantemente aumentar su repertorio de habilidades."
+}
 }

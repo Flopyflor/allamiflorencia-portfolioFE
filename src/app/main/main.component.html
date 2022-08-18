@@ -1,20 +1,19 @@
 <app-header
-    [sections] = "getTitles()"
+    [sections]="getTitles()"
 ></app-header>
+<main class="container fluid">
 
-  <main class="container fluid">
-  
-      <section id="presentación">
-          <h1>{{persona.nombre}}</h1>
-          <p>{{persona.bio}}</p>
-      </section>
-  
-      <app-section *ngFor="let grupo of sections"
-      [titulo]="grupo.titulo"
-      [tipo] ="grupo.tipo"
-      [data]="grupo.data"
-      >
-      </app-section>
-  </main>
-  
-  <app-footer></app-footer>
+    <section id="presentación">
+        <h1>{{persona.nombre}}</h1>
+        <p>{{persona.bio}}</p>
+    </section>
+
+    <app-section *ngFor="let grupo of sections"
+    [titulo]="grupo.titulo"
+    [tipo] ="grupo.tipo"
+    [data]="grupo.data"
+    >
+    </app-section>
+</main>
+
+<app-footer></app-footer>

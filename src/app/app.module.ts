@@ -12,6 +12,7 @@ import { CardComponent } from './vis/card/card.component';
 import { ProgressBarComponent } from './vis/progress-bar/progress-bar.component';
 import { ProjectComponent } from './vis/project/project.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LogInComponent } from './log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     SectionComponent,
     CardComponent,
     ProgressBarComponent,
-    ProjectComponent
+    ProjectComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,

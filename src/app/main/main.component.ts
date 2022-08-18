@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PersonalInfoService } from '../services/personal-info.service';
 import { Section } from '../Interfaces/Section';
+import { Person } from '../Interfaces/Person';
 
 @Component({
   selector: 'app-main',
@@ -9,21 +10,19 @@ import { Section } from '../Interfaces/Section';
 })
 export class MainComponent implements OnInit {
 
-  title = 'PortfolioFrontEnd';
-
-  persona = {
-    'nombre': 'Florencia Allami',
-    'bio': 'Soy una estudiante universitaria de 18 años que busca constantemente aumentar su repertorio de habilidades.'
-  }
-
+  persona: Person = {nombre: "", bio: ""}
   sections: Section[] = [{titulo: "", tipo: "", data: [{titulo: "", link: "", descripcion: ""}]}];
+
 
   constructor( private DB:PersonalInfoService) { }
 
   ngOnInit(): void {
-    this.DB.get().subscribe( (sections) => {
-      this.sections = sections;
+    this.DB.getPersonalInfo().subscribe((persona) => {
+      this.persona = persona;
     })
+    this.DB.getSections().subscribe( (sections) => {
+      this.sections = sections;
+    });
   }
 
   getTitles(): string[] {
