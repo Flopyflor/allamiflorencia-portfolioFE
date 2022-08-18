@@ -53,4 +53,12 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getTitles(): string[] {
+    var titles = [];
+    for(var grupo of this.sections) {
+      titles.push(grupo.titulo);
+    }
+    return titles;
+  }
+
 }

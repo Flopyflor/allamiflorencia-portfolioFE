@@ -1,0 +1,37 @@
+<section>
+    <h2 [id]="titulo">{{titulo}}</h2>
+    
+    <div class="grid-container" [ngSwitch]="tipo">
+
+        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'card'">
+            <app-card class="col"
+            *ngFor="let card of data"
+            [titulo]="card.titulo"
+            [descripcion]="card.descripcion"
+            [link]="card.link"
+            >
+            </app-card>
+        </div>
+
+        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'progress-bar'">
+            <app-progress-bar class="col"
+            *ngFor="let card of data"
+            [titulo]="card.titulo"
+            [descripcion]="card.descripcion"
+            [link]="card.link"
+            >
+            </app-progress-bar>
+        </div>
+
+        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'project'">
+            <app-project class="col"
+            *ngFor="let card of data"
+            [titulo]="card.titulo"
+            [descripcion]="card.descripcion"
+            [link]="card.link"
+            >
+            </app-project>
+        </div>
+  </div>
+
+  </section>
