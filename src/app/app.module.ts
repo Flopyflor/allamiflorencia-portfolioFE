@@ -11,6 +11,7 @@ import { SectionComponent } from './section/section.component';
 import { CardComponent } from './vis/card/card.component';
 import { ProgressBarComponent } from './vis/progress-bar/progress-bar.component';
 import { ProjectComponent } from './vis/project/project.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProjectComponent } from './vis/project/project.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
