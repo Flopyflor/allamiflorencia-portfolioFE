@@ -14,11 +14,9 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem("currentUser")||'{}'));
   }
 
-  inicarSesion(credenciales: any): Observable<any> {
+  iniciarSesion(credenciales: any): Observable<any> {
 
-    console.log("Enviando credenciales hardcoded");
-
-    var data = this.http.post<any>("localhost:8080/validar/login", {usuario: "admin", password: "constraseña"}).pipe(map(data =>{
+    return this.http.post<any>(this.url, credenciales).pipe(map(data =>{
       sessionStorage.setItem("currentUser", JSON.stringify(data));
       this.currentUserSubject.next(data);
 
@@ -27,35 +25,6 @@ export class AuthenticationService {
 
       return data
     }));
-
-    /*
-    console.log("Enviando credenciales");
-    var data =  this.http.post<any>(this.url, credenciales).pipe(map(data =>{
-      sessionStorage.setItem("currentUser", JSON.stringify(data));
-      this.currentUserSubject.next(data);
-
-      console.log("la data devuelta es: ");
-      console.log(data);
-
-      return data
-    }));
-
-    console.log("mi data primer intento");
-    console.log(data);
-    /*
-
-
-    /*
-    //Este llega al servidor y da un wrong method error
-
-    this.http.get(this.url, credenciales).subscribe((data)=>{
-      console.log("intentando ver la data con suscribe")
-      console.log(data);
-    });
-    */
-
-
-    return data;
   }
 
   get usuarioAutenticado(){

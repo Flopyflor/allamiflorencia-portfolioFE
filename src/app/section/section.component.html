@@ -6,6 +6,7 @@
         <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'card'">
             <app-card class="col"
             *ngFor="let card of data"
+            [id]="card.id"
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"
@@ -16,6 +17,7 @@
         <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'progress-bar'">
             <app-progress-bar class="col"
             *ngFor="let card of data"
+            [id]="card.id"
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"
@@ -26,6 +28,7 @@
         <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'project'">
             <app-project class="col"
             *ngFor="let card of data"
+            [id]="0"
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"

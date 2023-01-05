@@ -41,7 +41,10 @@ export class LogInFormComponent implements OnInit {
   enviar(event: Event){
     event.preventDefault();
 
-    this.authService.inicarSesion(this.form.value).subscribe(data=>{
+    console.log("pasando la form:");
+    console.log(this.form.value);
+
+    this.authService.iniciarSesion(this.form.value).subscribe(data=>{
       console.log("DATA", JSON.stringify(data));
       this.rutas.navigate(["/inicio"]);
     })
