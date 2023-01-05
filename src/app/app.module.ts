@@ -11,8 +11,11 @@ import { SectionComponent } from './section/section.component';
 import { CardComponent } from './vis/card/card.component';
 import { ProgressBarComponent } from './vis/progress-bar/progress-bar.component';
 import { ProjectComponent } from './vis/project/project.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LogInComponent } from './log-in/log-in.component';
+import { LogInFormComponent } from './log-in-form/log-in-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -25,14 +28,19 @@ import { LogInComponent } from './log-in/log-in.component';
     CardComponent,
     ProgressBarComponent,
     ProjectComponent,
-    LogInComponent
-  ],
+    LogInComponent,
+    LogInFormComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

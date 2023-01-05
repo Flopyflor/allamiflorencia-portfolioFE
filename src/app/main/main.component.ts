@@ -11,7 +11,7 @@ import { Person } from '../Interfaces/Person';
 export class MainComponent implements OnInit {
 
   persona: Person = {nombre: "", bio: ""}
-  sections: Section[] = [{titulo: "", tipo: "", data: [{titulo: "", link: "", descripcion: ""}]}];
+  sections: Section[] = [{id: 0, titulo: "", tipo: "", data: [{id: 0, titulo: "", link: "", descripcion: ""}]}];
 
 
   constructor( private DB:PersonalInfoService) { }

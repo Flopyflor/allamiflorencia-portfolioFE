@@ -10,10 +10,10 @@ import { Person } from '../Interfaces/Person';
 })
 export class PersonalInfoService {
 
-  url = "http://localhost:3000/"
+  url = "http://localhost:8080/traer/"
 
-  sections = "sections";
-  person = "person";
+  sections = "secciones";
+  person = "persona";
 
   constructor(private http : HttpClient) { }
 

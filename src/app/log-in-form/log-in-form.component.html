@@ -1,0 +1,17 @@
+<form action="" [formGroup]="form">
+    <h2>Iniciar sesión para acceder como editor</h2>
+    <div class="form-input">
+        <label for="usuario">Usuario: </label>
+        <input type="text" id="usuario" formControlName="usuario" [ngClass]="{'required': usuarioInvalid()}">
+        <div [hidden]="!usuarioInvalid()" class="error">*este campo es obligatorio</div>
+    </div>
+
+    <div class="form-input">
+        <label for="password">Contraseña: </label>
+        <input type="password" id="password" formControlName="password" [ngClass]="{'required': passwordInvalid()}">
+        <div [hidden]="!passwordInvalid()" class="error">*este campo es obligatorio</div>
+    </div>
+
+    <input class="btn" type="submit" (click)="enviar($event)" value="Enviar" [disabled] = "passwordInvalid() || usuarioInvalid()"
+    [ngClass] = "(passwordInvalid() || usuarioInvalid())? 'desactivado' : 'enviar'">
+</form>

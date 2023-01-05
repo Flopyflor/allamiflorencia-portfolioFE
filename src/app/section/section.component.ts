@@ -11,9 +11,10 @@ export class SectionComponent implements OnInit {
   @Input() titulo = "";
   @Input() tipo = "";
   @Input() data : Card[] = [
-    {'titulo': 'ILSE',
-    'link': '/assets/ILSE-logo.jpg',
-    'descripcion': 'Escuela Secundaria nacional dependiente de la UBA.'}
+    {"id":0,
+      'titulo': '',
+    'link': '',
+    'descripcion': ''}
   ];
 
   constructor() { }
