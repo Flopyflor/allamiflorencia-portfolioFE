@@ -6,34 +6,56 @@
         <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'card'">
             <app-card class="col"
             *ngFor="let card of data"
+            [seccion]="titulo"
             [id]="card.id"
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"
             >
             </app-card>
+
+            <app-add-info
+                [seccion]="titulo"
+                [tipo]="tipo"
+                [hidden]="!editable"
+            ></app-add-info>
+
         </div>
 
         <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'progress-bar'">
             <app-progress-bar class="col"
             *ngFor="let card of data"
+            [seccion]="titulo"
             [id]="card.id"
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"
             >
             </app-progress-bar>
+
+            <app-add-info
+                [seccion]="titulo"
+                [tipo]="tipo"
+                [hidden]="!editable"
+            ></app-add-info>
         </div>
 
         <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'project'">
             <app-project class="col"
             *ngFor="let card of data"
-            [id]="0"
+            [seccion]="titulo"
+            [id]="card.id"
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"
             >
             </app-project>
+
+            <app-add-info
+                [seccion]="titulo"
+                [tipo]="tipo"
+                [hidden]="!editable"
+            ></app-add-info>
         </div>
   </div>
 

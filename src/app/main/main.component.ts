@@ -10,16 +10,12 @@ import { Person } from '../Interfaces/Person';
 })
 export class MainComponent implements OnInit {
 
-  persona: Person = {nombre: "", bio: ""}
   sections: Section[] = [{id: 0, titulo: "", tipo: "", data: [{id: 0, titulo: "", link: "", descripcion: ""}]}];
 
 
   constructor( private DB:PersonalInfoService) { }
 
   ngOnInit(): void {
-    this.DB.getPersonalInfo().subscribe((persona) => {
-      this.persona = persona;
-    })
     this.DB.getSections().subscribe( (sections) => {
       this.sections = sections;
     });

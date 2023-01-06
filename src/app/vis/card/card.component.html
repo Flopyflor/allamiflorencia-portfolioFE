@@ -1,7 +1,22 @@
-<div class="card shadow-sm h-100">
+<div class="card shadow-sm h-100" [hidden]="editable">
   <img [src]="link" class="card-logo" alt="">
   <div class="card-body flex-shrink-1">
     <h5 class="card-title">{{titulo}}</h5>
     <p class="card-text">{{descripcion}}</p>
   </div>
 </div>
+
+<form action="" [formGroup]="form" [hidden]="!editable">
+  <div class="card shadow-sm h-100">
+    <label for="link">link a la imagen: </label>
+    <input type="text" class="card-text" id="link" formControlName="link" [value]="link">
+
+    <input type="text" id="titulo" formControlName="titulo" [value]="titulo">
+    <input type="text" id="descripcion" formControlName="descripcion" [value]="descripcion">
+
+    <input type="submit" value="Actualizar" (click)="updateDB()">
+
+    <button (click)="eliminarDB()">Eliminar</button>
+
+  </div>
+</form>

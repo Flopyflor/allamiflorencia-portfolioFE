@@ -3,6 +3,10 @@
         <a class="nav-link active" aria-current="page" href="#presentación">Presentación</a>
         <a class="nav-link" *ngFor="let titulo of sections" [href]="'#'+titulo">{{titulo}}</a>
       </nav>
-  
-    <app-log-in></app-log-in>
+      
+      <div>
+        <app-edit-btn></app-edit-btn>
+        <app-log-in></app-log-in>
+      </div>
+      
 </header>

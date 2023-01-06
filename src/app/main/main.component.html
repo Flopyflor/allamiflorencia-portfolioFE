@@ -3,12 +3,10 @@
 ></app-header>
 <main class="container fluid">
 
-    <section id="presentación">
-        <h1>{{persona.nombre}}</h1>
-        <p>{{persona.bio}}</p>
-    </section>
+    <app-persona></app-persona>
 
     <app-section *ngFor="let grupo of sections"
+    [id] = "grupo.id"
     [titulo]="grupo.titulo"
     [tipo] ="grupo.tipo"
     [data]="grupo.data"

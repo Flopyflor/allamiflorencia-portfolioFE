@@ -3,6 +3,7 @@ import { HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Section } from '../Interfaces/Section';
 import { Person } from '../Interfaces/Person';
+import { Card } from '../Interfaces/Card';
 
 
 @Injectable({
@@ -10,10 +11,13 @@ import { Person } from '../Interfaces/Person';
 })
 export class PersonalInfoService {
 
-  url = "http://localhost:8080/traer/"
+  private url = "http://localhost:8080/"
 
-  sections = "secciones";
-  person = "persona";
+  private sections = "traer/secciones";
+  private person = "traer/persona";
+
+  private upInfo= "update/info";
+  private borrarInfo = "borrar/info";
 
   constructor(private http : HttpClient) { }
 
@@ -23,5 +27,15 @@ export class PersonalInfoService {
 
   getPersonalInfo():Observable<Person> {
     return this.http.get<Person>(this.url+this.person);
+  }
+
+  updateInfo(info: any): void{
+    console.log(info);
+    this.http.post(this.url+this.upInfo, info).subscribe();
+  }
+
+  eliminarInfo(id: number){
+    console.log("eliminar ", id);
+    this.http.post(this.url+this.borrarInfo, id);
   }
 }

@@ -16,6 +16,9 @@ import { LogInComponent } from './log-in/log-in.component';
 import { LogInFormComponent } from './log-in-form/log-in-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterceptorService } from './services/interceptor.service';
+import { EditBtnComponent } from './edit-btn/edit-btn.component';
+import { PersonaComponent } from './vis/persona/persona.component';
+import { AddInfoComponent } from './vis/add-info/add-info.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { InterceptorService } from './services/interceptor.service';
     ProgressBarComponent,
     ProjectComponent,
     LogInComponent,
-    LogInFormComponent
+    LogInFormComponent,
+    EditBtnComponent,
+    PersonaComponent,
+    AddInfoComponent
     ],
   imports: [
     BrowserModule,

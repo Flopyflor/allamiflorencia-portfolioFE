@@ -35,7 +35,7 @@ header {
 }
 
 
-#log-in {
+.nav-btn {
     border-radius: 10px;
     background-color: var(--color-secondary);
     color: var(--color-on-secondary);
@@ -43,6 +43,7 @@ header {
     border: none;
     height:fit-content;
     text-decoration: none;
+    margin: 5px;
 }
 
 h1, h2 {

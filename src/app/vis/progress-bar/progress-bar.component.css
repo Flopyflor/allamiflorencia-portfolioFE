@@ -1,0 +1,12 @@
+input{ 
+    width:97%;
+}
+
+.card {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    align-content: center;
+    
+}

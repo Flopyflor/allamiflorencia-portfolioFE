@@ -1,4 +1,4 @@
-<div class="card shadow-sm h-100">
+<div class="card shadow-sm h-100" [hidden]="editable">
     <div class="card-body">
     <h5 class="card-title">{{titulo}}</h5>
     <div class="progress">
@@ -6,3 +6,13 @@
     </div>
     </div>
 </div>
+
+<form action="" [formGroup]="form" [hidden]="!editable">
+    <div class="card shadow-sm h-100">
+        <input type="text" id="titulo" formControlName="titulo" [value]="titulo">
+        <input type="text" id="descripcion" formControlName="descripcion" [value]="descripcion">
+        <input type="submit" value="Actualizar" (click)="updateDB()">
+        <button (click)="eliminarDB()">Eliminar</button>
+
+    </div>
+  </form>

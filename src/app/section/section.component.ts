@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Card } from '../Interfaces/Card';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'app-section',
@@ -8,6 +10,7 @@ import { Card } from '../Interfaces/Card';
 })
 export class SectionComponent implements OnInit {
 
+  @Input() id = 0;
   @Input() titulo = "";
   @Input() tipo = "";
   @Input() data : Card[] = [
@@ -17,7 +20,14 @@ export class SectionComponent implements OnInit {
     'descripcion': ''}
   ];
 
-  constructor() { }
+  subscription: Subscription;
+  editable: boolean=false;
+
+  constructor(private uiService: UiService) {
+    this.subscription = this.uiService.onToggle().subscribe((value) => {
+      this.editable = value;
+    });
+   }
 
   ngOnInit(): void {
   }
