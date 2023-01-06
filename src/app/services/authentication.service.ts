@@ -20,9 +20,6 @@ export class AuthenticationService {
       sessionStorage.setItem("currentUser", JSON.stringify(data));
       this.currentUserSubject.next(data);
 
-      console.log("la data devuelta es: ");
-      console.log(data);
-
       return data
     }));
   }

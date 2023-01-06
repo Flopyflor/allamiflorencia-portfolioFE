@@ -1,9 +1,9 @@
 <section id="presentación">
-    <div [hidden]="editable">
+    <div *ngIf="!editable">
         <h1>{{persona.nombre}}</h1>
         <p>{{persona.bio}}</p>
     </div>
-    <form action="" [hidden]="!editable" [formGroup]="form">
+    <form action="" *ngIf="editable" [formGroup]="form">
         <input type="text" name="nombre" id="nombre" [value]="persona.nombre" formControlName="nombre"><br>
         <input type="text" name="bio" id="bio" [value]="persona.bio" formControlName="bio"><br>
         <input type="submit" value="Actualizar" (click)="updateDBInfo()">

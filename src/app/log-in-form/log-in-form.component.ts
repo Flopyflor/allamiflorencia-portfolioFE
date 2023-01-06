@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -41,13 +42,22 @@ export class LogInFormComponent implements OnInit {
   enviar(event: Event){
     event.preventDefault();
 
-    console.log("pasando la form:");
-    console.log(this.form.value);
-
-    this.authService.iniciarSesion(this.form.value).subscribe(data=>{
-      console.log("DATA", JSON.stringify(data));
-      this.rutas.navigate(["/inicio"]);
-    })
+    this.authService.iniciarSesion(this.form.value).subscribe(
+      {next: 
+        (data) => {
+            this.rutas.navigate(["/inicio"]);
+        },
+      error: 
+        (err : HttpErrorResponse)=> { 
+          if(err instanceof Error){
+            console.log("a FE error occurred", err.error.message);
+          } else {
+            console.log('Backend returned status code: ', err.status);
+            console.log('Response body:', err.error);
+          }
+        }
+      }
+    );
   }
 
 }

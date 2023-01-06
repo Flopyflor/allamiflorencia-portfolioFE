@@ -11,6 +11,8 @@ export class InterceptorService implements HttpInterceptor {
   constructor(private authService: AuthenticationService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+
     var currentUser = this.authService.usuarioAutenticado;
     if(currentUser && currentUser.accessToken){
       req = req.clone({

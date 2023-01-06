@@ -1,4 +1,4 @@
-<div class="card shadow-sm h-100" [hidden]="editable">
+<div class="card shadow-sm h-100" *ngIf="!editable">
   <img [src]="link" class="card-logo" alt="">
   <div class="card-body flex-shrink-1">
     <h5 class="card-title">{{titulo}}</h5>
@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<form action="" [formGroup]="form" [hidden]="!editable">
+<form action="" [formGroup]="form" *ngIf="editable">
   <div class="card shadow-sm h-100">
     <label for="link">link a la imagen: </label>
     <input type="text" class="card-text" id="link" formControlName="link" [value]="link">

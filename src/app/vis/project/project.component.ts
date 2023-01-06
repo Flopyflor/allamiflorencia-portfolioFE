@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Card } from 'src/app/Interfaces/Card';
 import { PersonalInfoService } from 'src/app/services/personal-info.service';
 import { UiService } from 'src/app/services/ui.service';
 
@@ -18,6 +19,8 @@ export class ProjectComponent implements OnInit {
     @Input() seccion = "";
     editable: boolean = false;
     subscription?: Subscription;
+    @Output() sendDeleteCard: EventEmitter<Card> = new EventEmitter;
+
 
 
     form: FormGroup;
@@ -40,6 +43,8 @@ export class ProjectComponent implements OnInit {
       this.Link?.setValue(this.link);
       this.Titulo?.setValue(this.titulo);
       this.Descripcion?.setValue(this.descripcion);
+
+      this.editable=this.uiService.isEditable();
     }
 
     get Link(){
@@ -62,10 +67,20 @@ export class ProjectComponent implements OnInit {
         descripcion: this.Descripcion?.value,
         seccion: this.seccion
       });
+
+      this.titulo = this.Titulo?.value;
+      this.link = this.Link?.value;
+      this.descripcion = this.Descripcion?.value;
     }
 
     eliminarDB():void{
       this.DB.eliminarInfo(this.id);
+      this.sendDeleteCard.emit({
+        id: this.id,
+        titulo: this.titulo,
+        link: this.link,
+        descripcion: this.descripcion
+      })
     }
 
 }

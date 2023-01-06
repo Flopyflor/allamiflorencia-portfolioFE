@@ -30,6 +30,23 @@ export class SectionComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
+  }
+
+  agregarInfo(id: any){
+    var card : Card = {
+      id: id,
+      titulo: '',
+      link: '',
+      descripcion: ''
+    }
+    this.data.push(card);
+    console.log("agregué una card en la seccion de id ", id);
+  }
+
+  borrarInfo(card: Card){
+    var index = this.data.indexOf(card);
+    this.data.splice(index);
   }
 
 }

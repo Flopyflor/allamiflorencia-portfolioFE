@@ -1,4 +1,4 @@
-<div class="card shadow-sm h-100" [hidden]="editable">
+<div class="card shadow-sm h-100" *ngIf="!editable">
     <div class="card-body">
     <h5 class="card-title">{{titulo}}</h5>
     <p class="card-text">{{descripcion}}</p>
@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<form action="" [formGroup]="form" [hidden]="!editable">
+<form action="" [formGroup]="form" *ngIf="editable">
     <div class="card shadow-sm h-100">
         <input type="text" id="titulo" formControlName="titulo" [value]="titulo">
         <input type="text" id="descripcion" formControlName="descripcion" [value]="descripcion">

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { PersonalInfoService } from 'src/app/services/personal-info.service';
 
 @Component({
@@ -10,18 +10,21 @@ export class AddInfoComponent implements OnInit {
 
   @Input() seccion="";
   @Input() tipo="";
+  @Output() sendAgregarInfo : EventEmitter<any> = new EventEmitter;
 
-  constructor(private DB: PersonalInfoService) { }
+  constructor(private DB: PersonalInfoService) {
+   }
 
   ngOnInit(): void {
   }
 
   agregarInfo(){
-    //maybe directamente cargarlo a la DB-cómo se vería eso?
-    this.DB.updateInfo({
-      seccion: this.seccion,
-      tipo: this.tipo
-    })
+    var info = {
+      seccion:this.seccion
+    };
+    this.DB.createInfo(info).subscribe((id)=>{
+      this.sendAgregarInfo.emit(id);
+    });
   }
 
 }

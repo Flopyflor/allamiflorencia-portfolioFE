@@ -14,4 +14,6 @@
 
     <input class="btn" type="submit" (click)="enviar($event)" value="Enviar" [disabled] = "passwordInvalid() || usuarioInvalid()"
     [ngClass] = "(passwordInvalid() || usuarioInvalid())? 'desactivado' : 'enviar'">
+
+    <a href="/">Continuar como invitado.</a>
 </form>

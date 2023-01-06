@@ -1,9 +1,9 @@
 <section>
     <h2 [id]="titulo">{{titulo}}</h2>
     
-    <div class="grid-container" [ngSwitch]="tipo">
+    <div class="grid-container" [ngSwitch]="tipo" >
 
-        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'card'">
+        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'card'" [id]="titulo+'-'+'card'">
             <app-card class="col"
             *ngFor="let card of data"
             [seccion]="titulo"
@@ -11,18 +11,20 @@
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"
+            (sendDeleteCard)="borrarInfo($event)"
             >
             </app-card>
 
             <app-add-info
                 [seccion]="titulo"
                 [tipo]="tipo"
-                [hidden]="!editable"
+                *ngIf="editable"
+                (sendAgregarInfo)="agregarInfo($event)"
             ></app-add-info>
 
         </div>
 
-        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'progress-bar'">
+        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'progress-bar'" [id]="titulo+'-'+'progress-bar'">
             <app-progress-bar class="col"
             *ngFor="let card of data"
             [seccion]="titulo"
@@ -30,17 +32,19 @@
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"
+            (sendDeleteCard)="borrarInfo($event)"
             >
             </app-progress-bar>
 
             <app-add-info
                 [seccion]="titulo"
                 [tipo]="tipo"
-                [hidden]="!editable"
+                *ngIf="editable"
+                (sendAgregarInfo)="agregarInfo($event)"
             ></app-add-info>
         </div>
 
-        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'project'">
+        <div class="row row-cols-2 row-cols-sm-3 g-4" *ngSwitchCase="'project'" [id]="titulo+'-'+'project'">
             <app-project class="col"
             *ngFor="let card of data"
             [seccion]="titulo"
@@ -48,13 +52,15 @@
             [titulo]="card.titulo"
             [descripcion]="card.descripcion"
             [link]="card.link"
+            (sendDeleteCard)="borrarInfo($event)"
             >
             </app-project>
 
             <app-add-info
                 [seccion]="titulo"
                 [tipo]="tipo"
-                [hidden]="!editable"
+                *ngIf="editable"
+                (sendAgregarInfo)="agregarInfo($event)"
             ></app-add-info>
         </div>
   </div>

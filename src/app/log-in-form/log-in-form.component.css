@@ -48,3 +48,15 @@ input {
 .error{
     color: red;
 }
+
+a{
+    text-align: center;
+    color: gray;
+    font-size: 1em;
+    text-decoration: none;
+    display: block;
+}
+
+a:hover{
+    text-decoration: underline;
+}

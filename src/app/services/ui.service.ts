@@ -19,4 +19,9 @@ export class UiService {
   onToggle(): Observable<any> {
     return this.subject.asObservable();
   }
+
+  isEditable(): boolean{
+    return this.editable;
+  }
+
 }
