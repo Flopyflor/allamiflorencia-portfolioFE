@@ -1,5 +1,5 @@
 <app-header
-    [sections]="getTitles()"
+    [sections]="titles"
 ></app-header>
 <main class="container fluid">
 
@@ -10,8 +10,14 @@
     [titulo]="grupo.titulo"
     [tipo] ="grupo.tipo"
     [data]="grupo.data"
+    (sendEliminar)="eliminarSeccion($event)"
     >
     </app-section>
+
+    <app-add-section
+    (sendNewSection)="addSection($event)"
+    [titulos]="titles"
+    ></app-add-section>
 </main>
 
 <app-footer></app-footer>

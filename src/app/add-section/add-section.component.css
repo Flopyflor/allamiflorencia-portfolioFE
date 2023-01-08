@@ -1,13 +1,9 @@
-.header-input{
-    font-size: 1.3em;
-    border: 2px solid var(--color-secondary);
-    border-radius: 5px;
-    margin:5px;
-    margin-left: 0;
+.required{
+    color:red;
 }
 
 button{
-    margin: 0 5px;
+    margin: 5px;
     background-color: var(--color-secondary);
     color: var(--color-on-secondary);
     border-color: var(--color-secondary);
@@ -16,4 +12,3 @@ button{
 button:hover{
     filter: brightness(95%);
 }
-

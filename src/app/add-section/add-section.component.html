@@ -1,0 +1,14 @@
+<form action="" [formGroup]="form" *ngIf="editable">
+    <p>Agregar otra sección</p>
+    <input type="text" formControlName="titulo" (change)="checkTituloEnInvalidos()">
+    <select formControlName="tipo">
+        <option value="card">Tarjeta</option>
+        <option value="project">Proyecto</option>
+        <option value="progress-bar">Barra de Progreso</option>
+    </select>
+    <br>
+    <div class="required" *ngIf="checkTituloEnInvalidos()">*El titulo no puede estar repetido</div>
+    <div class="required" *ngIf="tipoInvalid()">*Es necesario poner un tipo</div>
+
+    <button (click)="onClick()" [disabled]="tipoInvalid() || checkTituloEnInvalidos()">Agregar</button>
+</form>

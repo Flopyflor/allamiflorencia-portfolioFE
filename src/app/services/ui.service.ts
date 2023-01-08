@@ -9,11 +9,16 @@ export class UiService {
   private editable:boolean = false;
   private subject = new Subject<any>();
 
-  constructor() { }
+  constructor() { 
+    if(sessionStorage.getItem("editable") == "true"){
+      this.editable = true;
+    }
+  }
 
   toggleEditable() {
     this.editable = !this.editable;
     this.subject.next(this.editable);
+    sessionStorage.setItem("editable", this.editable.toString());
   }
 
   onToggle(): Observable<any> {

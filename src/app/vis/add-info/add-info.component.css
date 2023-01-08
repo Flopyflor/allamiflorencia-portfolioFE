@@ -1,0 +1,22 @@
+.card {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.card:hover{
+    filter: brightness(90%);
+}
+
+fa-icon{
+    display: block;
+    width: fit-content;
+    font-size: 3em;
+    color: darkgray;
+}
+
+

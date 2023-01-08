@@ -19,6 +19,8 @@ import { InterceptorService } from './services/interceptor.service';
 import { EditBtnComponent } from './edit-btn/edit-btn.component';
 import { PersonaComponent } from './vis/persona/persona.component';
 import { AddInfoComponent } from './vis/add-info/add-info.component';
+import { AddSectionComponent } from './add-section/add-section.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -35,14 +37,16 @@ import { AddInfoComponent } from './vis/add-info/add-info.component';
     LogInFormComponent,
     EditBtnComponent,
     PersonaComponent,
-    AddInfoComponent
+    AddInfoComponent,
+    AddSectionComponent
     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}

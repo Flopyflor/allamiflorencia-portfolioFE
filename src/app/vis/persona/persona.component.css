@@ -7,3 +7,13 @@ input{
     width: 100%;
     margin: 5px;
 }
+
+button {
+    background-color: var(--color-primary);
+    filter: brightness(190%) saturate(60%) hue-rotate(40deg);
+    border-color: var(--color-primary);
+}
+
+button:hover{
+    filter: brightness(180%) saturate(60%) hue-rotate(40deg);
+}

@@ -1,0 +1,14 @@
+fa-icon{
+    font-size: 1.3em;
+    margin: 5px;
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    text-decoration: none;
+    color: var(--color-secondary);
+    transition: color 0.3s ease-out;
+}

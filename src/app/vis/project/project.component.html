@@ -13,7 +13,7 @@
 
         <label for="link">Link a github: </label>
         <input type="text" id="link" formControlName="link" [value]="link">
-        <input type="submit" value="Actualizar" (click)="updateDB()">    
+        <button (click)="updateDB()">Actualizar</button>
         <button (click)="eliminarDB()">Eliminar</button>
         </div>
   </form>

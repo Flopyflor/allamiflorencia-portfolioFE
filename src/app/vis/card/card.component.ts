@@ -71,13 +71,16 @@ export class CardComponent implements OnInit {
     }
 
     eliminarDB():void{
-      this.DB.eliminarInfo(this.id);
-      this.sendDeleteCard.emit({
-        id: this.id,
-        titulo: this.titulo,
-        link: this.link,
-        descripcion: this.descripcion
-      })
+      this.DB.eliminarInfo(this.id).subscribe({
+        next: ()=>{
+          this.sendDeleteCard.emit({
+            id: this.id,
+            titulo: this.titulo,
+            link: this.link,
+            descripcion: this.descripcion
+          })
+        }
+      });
     }
   
   }

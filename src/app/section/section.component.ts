@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription, VirtualTimeScheduler } from 'rxjs';
 import { Card } from '../Interfaces/Card';
+import { Section } from '../Interfaces/Section';
+import { PersonalInfoService } from '../services/personal-info.service';
 import { UiService } from '../services/ui.service';
 
 @Component({
@@ -20,17 +23,30 @@ export class SectionComponent implements OnInit {
     'descripcion': ''}
   ];
 
+  @Output() sendEliminar: EventEmitter<Section> = new EventEmitter;
+
   subscription: Subscription;
   editable: boolean=false;
 
-  constructor(private uiService: UiService) {
+  sectionForm: FormGroup;
+
+  constructor(private uiService: UiService, private formBuilder: FormBuilder, private DB : PersonalInfoService) {
     this.subscription = this.uiService.onToggle().subscribe((value) => {
       this.editable = value;
     });
+
+    this.sectionForm = this.formBuilder.group({
+      titulo: [this.titulo, [Validators.required]]
+    })
    }
 
   ngOnInit(): void {
-    
+    this.editable= this.uiService.isEditable();
+    this.Titulo?.setValue(this.titulo);
+  }
+
+  get Titulo(){
+    return this.sectionForm.get("titulo");
   }
 
   agregarInfo(id: any){
@@ -41,7 +57,6 @@ export class SectionComponent implements OnInit {
       descripcion: ''
     }
     this.data.push(card);
-    console.log("agregué una card en la seccion de id ", id);
   }
 
   borrarInfo(card: Card){
@@ -49,4 +64,36 @@ export class SectionComponent implements OnInit {
     this.data.splice(index);
   }
 
+  actualizarSeccion(){
+    this.titulo = this.Titulo?.value;
+    this.DB.updateSeccion(this.id, this.Titulo?.value).subscribe();
+  }
+
+  eliminarSeccion(){
+    var seccion:Section = {
+      id : this.id,
+      titulo: this.titulo,
+      tipo: this.tipo,
+      data: this.data
+    };
+
+    for(var card of this.data){
+      if (card.id!=0){
+        this.DB.eliminarInfo(card.id).subscribe({
+          next:()=>{
+            if(this.data.indexOf(card) == this.data.length-1){
+              this.sendEliminar.emit(seccion);
+            }
+          }
+        });
+      } else {
+        this.data = [];
+      }
+    };
+
+    if(!this.data.length){
+      this.sendEliminar.emit(seccion);
+    }
+    
+  }
 }

@@ -12,8 +12,8 @@
         <div [hidden]="!passwordInvalid()" class="error">*este campo es obligatorio</div>
     </div>
 
-    <input class="btn" type="submit" (click)="enviar($event)" value="Enviar" [disabled] = "passwordInvalid() || usuarioInvalid()"
-    [ngClass] = "(passwordInvalid() || usuarioInvalid())? 'desactivado' : 'enviar'">
+    <button type="submit" (click)="enviar($event)" [disabled] = "passwordInvalid() || usuarioInvalid()"
+    [ngClass] = "(passwordInvalid() || usuarioInvalid())? 'desactivado' : 'enviar'">Enviar</button>
 
     <a href="/">Continuar como invitado.</a>
 </form>
