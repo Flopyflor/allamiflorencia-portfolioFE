@@ -37,6 +37,7 @@ export class AddSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.editable = this.uiService.isEditable();
   }
 
   get Titulo(){
