@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   constructor( private DB:PersonalInfoService) {
     this.DB.getSectionTitle().subscribe((lista)=>{
       this.titles = lista;
-    })
+    });
    }
 
   ngOnInit(): void {

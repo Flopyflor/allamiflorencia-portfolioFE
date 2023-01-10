@@ -17,6 +17,8 @@ export class AddSectionComponent implements OnInit {
   subscription?: Subscription;
   form: FormGroup;
 
+  tipos: string[] = [];
+
   @Input() titulos: string[] = [];
   tituloEnInvalidos: boolean = false;
 
@@ -32,7 +34,6 @@ export class AddSectionComponent implements OnInit {
     this.subscription = this.uiService.onToggle().subscribe((value) => {
       this.editable = value;
     });
-
     
   }
 
@@ -62,7 +63,6 @@ export class AddSectionComponent implements OnInit {
     var subs = this.DB.createSection(this.Titulo?.value, this.Tipo?.value);
 
     subs.subscribe((id)=>{
-      console.log("creé la seccion en la DB y ahora la estoy mostrando");
       var section:Section = {id: id, titulo: this.Titulo?.value, tipo: this.Tipo?.value, data: [{id: 0, titulo: "", link: "", descripcion: ""}]};
       this.sendNewSection.emit(section);
       }

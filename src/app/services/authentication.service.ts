@@ -7,7 +7,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 })
 export class AuthenticationService {
 
-  url="http://localhost:8080/validar/login";
+  url="http://localhost:8080/api/no-auth/authenticate";
   currentUserSubject: BehaviorSubject<any>;
 
   constructor(private http: HttpClient) { 
@@ -26,5 +26,9 @@ export class AuthenticationService {
 
   get usuarioAutenticado(){
     return this.currentUserSubject.value;
+  }
+
+  isAutenticado():boolean{
+    return this.currentUserSubject.value.token != null;
   }
 }

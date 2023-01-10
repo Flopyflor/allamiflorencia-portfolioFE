@@ -1,8 +1,8 @@
 <form action="" [formGroup]="form">
     <h2>Iniciar sesión para acceder como editor</h2>
     <div class="form-input">
-        <label for="usuario">Usuario: </label>
-        <input type="text" id="usuario" formControlName="usuario" [ngClass]="{'required': usuarioInvalid()}">
+        <label for="username">Usuario: </label>
+        <input type="text" id="username" formControlName="username" [ngClass]="{'required': usuarioInvalid()}">
         <div [hidden]="!usuarioInvalid()" class="error">*este campo es obligatorio</div>
     </div>
 

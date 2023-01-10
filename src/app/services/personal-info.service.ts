@@ -15,8 +15,8 @@ export class PersonalInfoService {
   private sections = "traer/secciones";
   private person = "traer/persona";
 
-  titulos : String[] =[];
-  subject: Subject<any> = new Subject;
+  private authorizedOnly = "api/auth/"
+  private noAuth ="api/no-auth/"
 
   private upInfo= "update/info";
   private borrarInfo = "borrar/info";
@@ -29,30 +29,28 @@ export class PersonalInfoService {
   private borrarSection = "borrar/seccion";
   private sectionsTitles = "traer/secciones-titulo"
 
+  //private tiposNombres = "traer/tipos"
+
   id: number = 0;
 
   constructor(private http : HttpClient) {
-    this.http.get(this.url+this.sectionsTitles).subscribe((lista)=>{
-      this.titulos = lista as String[];
-      this.subject.next(lista);
-    });
     
    }
 
   getSections():Observable<Section[]> {
-    return this.http.get<Section[]>(this.url+this.sections);
+    return this.http.get<Section[]>(this.url+this.noAuth+this.sections);
   }
 
   getPersonalInfo():Observable<Person> {
-    return this.http.get<Person>(this.url+this.person);
+    return this.http.get<Person>(this.url+this.noAuth+this.person);
   }
 
   createInfo(info: any): Observable<any>{
-    return this.http.post(this.url+this.newInfo, info);
+    return this.http.post(this.url+this.authorizedOnly+this.newInfo, info);
   }
 
   updateInfo(info: any): void{
-    this.http.post(this.url+this.upInfo, info).subscribe(
+    this.http.post(this.url+this.authorizedOnly+this.upInfo, info).subscribe(
       {error: 
         (err : HttpErrorResponse)=> { 
           if(err instanceof Error){
@@ -67,11 +65,11 @@ export class PersonalInfoService {
   }
 
   eliminarInfo(id: number){
-    return this.http.post(this.url+this.borrarInfo, id);
+    return this.http.post(this.url+this.authorizedOnly+this.borrarInfo, id);
   }
 
   updatePersona(info: any): void{
-    this.http.post(this.url+this.upPersona, info).subscribe(
+    this.http.post(this.url+this.authorizedOnly+this.upPersona, info).subscribe(
       {error: 
         (err : HttpErrorResponse)=> { 
           if(err instanceof Error){
@@ -90,18 +88,18 @@ export class PersonalInfoService {
       titulo: titulo,
       tipo: tipo
     }
-    return this.http.post(this.url+this.newSection, info);
+    return this.http.post(this.url+this.authorizedOnly+this.newSection, info);
   }
 
   updateSeccion(id: number, titulo: String): Observable<any>{
-    return this.http.post(this.url+this.upSection, {id: id, titulo: titulo});
+    return this.http.post(this.url+this.authorizedOnly+this.upSection, {id: id, titulo: titulo});
   }
 
   eliminarSeccion(id: number): Observable<any>{
-    return this.http.post(this.url+this.borrarSection, id);
+    return this.http.post(this.url+this.authorizedOnly+this.borrarSection, id);
   }
 
   getSectionTitle(): Observable<any>{
-    return this.subject.asObservable();
+    return this.http.get(this.url+this.noAuth+this.sectionsTitles);
   }
 }

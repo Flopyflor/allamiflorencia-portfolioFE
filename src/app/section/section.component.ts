@@ -30,6 +30,8 @@ export class SectionComponent implements OnInit {
 
   sectionForm: FormGroup;
 
+  titulos: string[] = [];
+
   constructor(private uiService: UiService, private formBuilder: FormBuilder, private DB : PersonalInfoService) {
     this.subscription = this.uiService.onToggle().subscribe((value) => {
       this.editable = value;
@@ -65,8 +67,21 @@ export class SectionComponent implements OnInit {
   }
 
   actualizarSeccion(){
-    this.titulo = this.Titulo?.value;
-    this.DB.updateSeccion(this.id, this.Titulo?.value).subscribe();
+    var newTitulo = this.Titulo?.value;
+
+    this.DB.getSectionTitle().subscribe((data)=>{
+      this.titulos = data as string[];
+
+      if(this.titulos.includes(newTitulo)){
+        this.Titulo?.setValue(this.titulo);
+        alert("No puede haber dos secciones con el mismo nombre");
+      } else {
+        this.titulo = newTitulo;
+        this.DB.updateSeccion(this.id, this.Titulo?.value).subscribe();
+      }
+    })
+
+    
   }
 
   eliminarSeccion(){

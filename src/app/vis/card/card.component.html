@@ -8,11 +8,10 @@
 
 <form action="" [formGroup]="form" *ngIf="editable">
   <div class="card shadow-sm h-100">
-    <label for="link">link a la imagen: </label>
-    <input type="text" class="card-text" id="link" formControlName="link" [value]="link">
+    <input type="text" class="card-text" id="link" formControlName="link" [value]="link" placeholder="Dirección local de la imagen (assets/...)">
 
-    <input type="text" id="titulo" formControlName="titulo" [value]="titulo">
-    <input type="text" id="descripcion" formControlName="descripcion" [value]="descripcion">
+    <input type="text" id="titulo" formControlName="titulo" [value]="titulo" placeholder="Titulo">
+    <input type="text" id="descripcion" formControlName="descripcion" [value]="descripcion" placeholder="Descripción">
 
     <button (click)="updateDB()">Actualizar</button>
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 import { UiService } from '../services/ui.service';
 
 @Component({
@@ -8,8 +9,12 @@ import { UiService } from '../services/ui.service';
 })
 export class EditBtnComponent implements OnInit {
 
+  autenticado = false;
+
   editable: boolean = false;
-  constructor(private uiService: UiService) { }
+  constructor(private uiService: UiService, private authService: AuthenticationService) { 
+    this.autenticado = authService.isAutenticado();
+  }
 
   ngOnInit(): void {
   }

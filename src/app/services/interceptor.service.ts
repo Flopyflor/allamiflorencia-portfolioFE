@@ -14,10 +14,10 @@ export class InterceptorService implements HttpInterceptor {
 
 
     var currentUser = this.authService.usuarioAutenticado;
-    if(currentUser && currentUser.accessToken){
+    if(currentUser && currentUser.token){
       req = req.clone({
         setHeaders:{
-          Authorization: `Bearer ${currentUser.accessToken}`
+          Authorization: `Bearer ${currentUser.token}`
         }
       })
     }
