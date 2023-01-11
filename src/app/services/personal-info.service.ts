@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { map, Observable, Subject } from 'rxjs';
 import { Section } from '../Interfaces/Section';
 import { Person } from '../Interfaces/Person';
+import { AuthenticationService } from './authentication.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -33,7 +35,7 @@ export class PersonalInfoService {
 
   id: number = 0;
 
-  constructor(private http : HttpClient) {
+  constructor(private http : HttpClient, private authService: AuthenticationService, private rutas : Router) {
     
    }
 
@@ -53,11 +55,7 @@ export class PersonalInfoService {
     this.http.post(this.url+this.authorizedOnly+this.upInfo, info).subscribe(
       {error: 
         (err : HttpErrorResponse)=> { 
-          if(err instanceof Error){
-            console.log("a FE error occurred", err.error.message);
-          } else {
-            console.log('Backend returned status code: ', err.status);
-            console.log('Response body:', err.error);
+          if(err instanceof Error){this.handleError(err);
           }
         }
       }
@@ -72,12 +70,7 @@ export class PersonalInfoService {
     this.http.post(this.url+this.authorizedOnly+this.upPersona, info).subscribe(
       {error: 
         (err : HttpErrorResponse)=> { 
-          if(err instanceof Error){
-            console.log("a FE error occurred", err.error.message);
-          } else {
-            console.log('Backend returned status code: ', err.status);
-            console.log('Response body:', err.error);
-          }
+            this.handleError(err);
         }
       }
     );
@@ -91,7 +84,7 @@ export class PersonalInfoService {
     return this.http.post(this.url+this.authorizedOnly+this.newSection, info);
   }
 
-  updateSeccion(id: number, titulo: String): Observable<any>{
+  updateSeccion(id: number, titulo: String): Observable<any>{ 
     return this.http.post(this.url+this.authorizedOnly+this.upSection, {id: id, titulo: titulo});
   }
 
@@ -101,5 +94,16 @@ export class PersonalInfoService {
 
   getSectionTitle(): Observable<any>{
     return this.http.get(this.url+this.noAuth+this.sectionsTitles);
+  }
+
+
+  handleError(err: HttpErrorResponse){
+    if(err instanceof Error){
+      alert("No hay conexión");
+    }else if(err.status == 403){
+      sessionStorage.clear();
+      this.authService.sesionVencida();
+      this.rutas.navigate(["/"]);
+    }
   }
 }

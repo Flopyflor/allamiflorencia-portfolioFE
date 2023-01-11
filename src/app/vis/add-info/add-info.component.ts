@@ -7,7 +7,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './add-info.component.html',
   styleUrls: ['./add-info.component.css']
 })
-export class AddInfoComponent implements OnInit {
+export class AddInfoComponent implements OnInit{
 
   @Input() seccion="";
   @Input() tipo="";

@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<form action="" [formGroup]="form" *ngIf="editable">
+<form action="" [formGroup]="form" *ngIf="editable" (change)="unsaved()">
   <div class="card shadow-sm h-100">
     <input type="text" class="card-text" id="link" formControlName="link" [value]="link" placeholder="Dirección local de la imagen (assets/...)">
 

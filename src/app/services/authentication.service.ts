@@ -31,4 +31,8 @@ export class AuthenticationService {
   isAutenticado():boolean{
     return this.currentUserSubject.value.token != null;
   }
+
+  sesionVencida(){
+    this.currentUserSubject.next("");
+  }
 }

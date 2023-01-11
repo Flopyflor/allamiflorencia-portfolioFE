@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<form action="" [formGroup]="form" *ngIf="editable">
+<form action="" [formGroup]="form" *ngIf="editable" (change)="unsaved()">
     <div class="card shadow-sm h-100">
         <input type="text" id="titulo" formControlName="titulo" [value]="titulo" placeholder="Titulo">
         <input type="text" id="descripcion" formControlName="descripcion" [value]="descripcion" placeholder="Descripción">

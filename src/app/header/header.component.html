@@ -1,10 +1,12 @@
 <header class="container-fluid">
-    <nav class="nav">            
+  <a class="nav-link dropdown-btn" (click)="toggleDropdown()">Secciones</a>
+    <nav class="nav" id="nav" [ngClass]="(dropdownVisible? 'dropdown-visible': 'dropdown-invisible')">
         <a class="nav-link active" aria-current="page" href="#presentación">Presentación</a>
         <a class="nav-link" *ngFor="let titulo of sections" [href]="'/inicio#'+titulo">{{titulo}}</a>
       </nav>
       
       <div>
+        <app-save-btn></app-save-btn>
         <app-edit-btn></app-edit-btn>
         <app-log-in></app-log-in>
       </div>

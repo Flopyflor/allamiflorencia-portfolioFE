@@ -8,6 +8,7 @@
     --color-on-secondary: black;
 }
 header {
+    position: static;
     display: flex;
     justify-content: space-between;
     background-color: var(--color-primary);
@@ -23,13 +24,13 @@ header {
     padding: 0;
 }
 
-.nav a{
+.nav-link{
     color: var(--color-on-primary);
     text-decoration: .1px underline transparent;
     transition: text-decoration .5s;
 }
 
-.nav a:hover {
+.nav-link:hover {
     text-decoration: 2.5px underline var(--color-on-primary);
     color: var(--color-on-primary);
 }
@@ -54,7 +55,13 @@ header {
 }
 
 h1, h2 {
-    text-decoration: 3px underline var(--color-secondary);
+    text-shadow: 2px 2px var(--color-secondary);
+    /* color: var(--color-secondary); */
+    width: fit-content;
+}
+
+.dropdown-btn {
+    display: none;
 }
 
 .card-logo {
@@ -79,4 +86,52 @@ section:first-of-type {
 
 section+section {
     margin: 50px 0;
+}
+
+@media (max-width:900px) {
+    .card {
+        z-index: -1;
+    }
+
+    header {
+        position: sticky;
+        top: 0;
+        left: 0;
+    }
+
+    .dropdown-visible{
+        display: block;
+    }
+
+    .dropdown-invisible{
+        display: none;
+    }
+
+    .nav{
+        background-color: var(--color-primary);
+        position: absolute;
+        top: 3.5em;
+        flex-direction: column;
+        border: 1px solid var(--color-on-primary);
+        z-index: 100000;
+        text-decoration: none;
+        transition: text-decoration 0s;
+    }
+
+    .nav-link{
+        text-decoration: none;
+        transition: text-decoration 0s;
+    }
+
+    .nav-link:hover {
+        background-color: var(--color-on-primary);
+        color: var(--color-primary);
+        text-decoration: none;
+        border: 1px solid var(--color-primary);
+        transition: text-decoration 0s;
+    }
+
+    .dropdown-btn{
+        display: block;
+    }
 }

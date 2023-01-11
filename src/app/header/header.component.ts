@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +10,25 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   @Input() sections = [""];
+  dropdownVisible = false;
+  subscription: Subscription;
 
-  constructor() { }
+  constructor(private uiService: UiService) { 
+    this.subscription = this.uiService.dropdownOnToggle().subscribe((value)=>{      
+      this.dropdownVisible=value;
+    });
+    
+  }
 
   ngOnInit(): void {
+    
+  }
+
+  toggleDropdown(){
+
+    this.uiService.toggleDropdown();
+    console.log(this.dropdownVisible);
+    
   }
 
 }

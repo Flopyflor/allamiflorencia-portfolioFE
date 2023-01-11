@@ -32,6 +32,9 @@ export class SectionComponent implements OnInit {
 
   titulos: string[] = [];
 
+  saveSub: Subscription;
+  changed =false;
+
   constructor(private uiService: UiService, private formBuilder: FormBuilder, private DB : PersonalInfoService) {
     this.subscription = this.uiService.onToggle().subscribe((value) => {
       this.editable = value;
@@ -39,7 +42,17 @@ export class SectionComponent implements OnInit {
 
     this.sectionForm = this.formBuilder.group({
       titulo: [this.titulo, [Validators.required]]
-    })
+    });
+
+    this.saveSub = this.uiService.onSaveAll().subscribe({
+      next:
+      ()=>{
+        if(this.changed){
+          this.actualizarSeccion();
+        }
+      },
+      error: (err)=>{DB.handleError(err)}
+    });
    }
 
   ngOnInit(): void {
@@ -69,19 +82,22 @@ export class SectionComponent implements OnInit {
   actualizarSeccion(){
     var newTitulo = this.Titulo?.value;
 
-    this.DB.getSectionTitle().subscribe((data)=>{
-      this.titulos = data as string[];
-
-      if(this.titulos.includes(newTitulo)){
-        this.Titulo?.setValue(this.titulo);
-        alert("No puede haber dos secciones con el mismo nombre");
-      } else {
-        this.titulo = newTitulo;
-        this.DB.updateSeccion(this.id, this.Titulo?.value).subscribe();
-      }
-    })
-
-    
+    this.DB.getSectionTitle().subscribe({
+      next:
+      (data)=>{
+        this.titulos = data as string[];
+  
+        if(this.titulos.includes(newTitulo)){
+          this.Titulo?.setValue(this.titulo);
+          alert("No puede haber dos secciones con el mismo nombre");
+        } else {
+          this.titulo = newTitulo;
+          this.DB.updateSeccion(this.id, this.Titulo?.value).subscribe();
+          this.changed = false;
+        }
+      },
+      error: (err) => {this.DB.handleError(err);}
+    });
   }
 
   eliminarSeccion(){
@@ -109,6 +125,16 @@ export class SectionComponent implements OnInit {
     if(!this.data.length){
       this.sendEliminar.emit(seccion);
     }
+
+    this.changed=false;
+    this.saveSub.unsubscribe()
     
+  }
+
+  unsaved(){
+    if(this.sectionForm.dirty){
+      this.uiService.markUnsaved();
+      this.changed = true;
+    } 
   }
 }

@@ -21,6 +21,8 @@ export class LogInFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.sesionVencida();
+    sessionStorage.clear();
   }
 
   get Usuario(){ 

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { PersonalInfoService } from '../services/personal-info.service';
 import { Section } from '../Interfaces/Section';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'app-main',
@@ -13,16 +14,24 @@ export class MainComponent implements OnInit {
   titles : string[] =[];
 
 
-  constructor( private DB:PersonalInfoService) {
-    this.DB.getSectionTitle().subscribe((lista)=>{
-      this.titles = lista;
+  constructor( private DB:PersonalInfoService, private uiService: UiService) {
+    this.DB.getSectionTitle().subscribe({
+      next:
+      (lista)=>{
+        this.titles = lista;
+      },
+      error: (err) => {DB.handleError(err)}
     });
    }
 
   ngOnInit(): void {
-    this.DB.getSections().subscribe( (sections) => {
+    this.DB.getSections().subscribe( {
+      next:
+      (sections) => {
       this.sections = sections;
-    });
+    },
+    error: (error) => {this.DB.handleError(error);}
+  });
   }
 
   addSection(section: Section){
@@ -35,8 +44,26 @@ export class MainComponent implements OnInit {
       return sec.id == seccion.id;
     });  
     this.sections.splice(index, 1);
-    this.DB.eliminarSeccion(seccion.id).subscribe();
+    this.DB.eliminarSeccion(seccion.id).subscribe({
+      error: (err) =>{this.DB.handleError(err);}
+    });
   }
-  
+
+  toggleDropdown() {
+    this.uiService.closeDropdown();
+    
+  }  
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification(event: any) {
+    
+    if(this.uiService.isUnsaved()){
+      event.returnValue = false;
+    }
+  }
+
+  canDeactivate() {
+    return !this.uiService.isUnsaved()
+  }
 
 }

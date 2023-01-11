@@ -24,6 +24,9 @@ export class ProgressBarComponent implements OnInit {
 
 
     form: FormGroup
+
+    changed = false;
+    saveSub: Subscription;
   
     constructor(private formBuilder: FormBuilder, private uiService: UiService, private DB : PersonalInfoService) {
       this.form = this.formBuilder.group({
@@ -34,6 +37,16 @@ export class ProgressBarComponent implements OnInit {
 
       this.subscription = this.uiService.onToggle().subscribe((value) => {
         this.editable = value;
+      });
+
+      this.saveSub = this.uiService.onSaveAll().subscribe({
+        next:
+        ()=>{
+          if(this.changed){
+            this.updateDB();
+          }
+        },
+        error: (err)=>{DB.handleError(err)}
       });
      }
 
@@ -70,6 +83,8 @@ export class ProgressBarComponent implements OnInit {
       this.titulo = this.Titulo?.value;
       this.link = this.Link?.value;
       this.descripcion = this.Descripcion?.value;
+      
+      this.changed=false;
     }
 
     eliminarDB():void{
@@ -83,6 +98,16 @@ export class ProgressBarComponent implements OnInit {
           })
         }
       });
+
+      this.changed=false;
+      this.saveSub.unsubscribe()
+    }
+
+    unsaved(){
+      if(this.form.dirty){
+        this.uiService.markUnsaved();
+        this.changed=true;
+      }
     }
 
 }

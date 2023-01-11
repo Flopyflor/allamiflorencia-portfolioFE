@@ -62,11 +62,14 @@ export class AddSectionComponent implements OnInit {
 
     var subs = this.DB.createSection(this.Titulo?.value, this.Tipo?.value);
 
-    subs.subscribe((id)=>{
-      var section:Section = {id: id, titulo: this.Titulo?.value, tipo: this.Tipo?.value, data: [{id: 0, titulo: "", link: "", descripcion: ""}]};
-      this.sendNewSection.emit(section);
-      }
-    );
+    subs.subscribe({
+      next:
+      (id)=>{
+        var section:Section = {id: id, titulo: this.Titulo?.value, tipo: this.Tipo?.value, data: [{id: 0, titulo: "", link: "", descripcion: ""}]};
+        this.sendNewSection.emit(section);
+        },
+      error: (error)=>{this.DB.handleError(error);}
+    });
   }
 
 }

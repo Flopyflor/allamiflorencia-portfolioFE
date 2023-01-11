@@ -13,10 +13,10 @@ export class EditBtnComponent implements OnInit {
 
   editable: boolean = false;
   constructor(private uiService: UiService, private authService: AuthenticationService) { 
-    this.autenticado = authService.isAutenticado();
   }
 
   ngOnInit(): void {
+    this.autenticado = this.authService.isAutenticado();
   }
 
   onClick(){

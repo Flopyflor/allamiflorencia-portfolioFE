@@ -21,6 +21,8 @@ import { PersonaComponent } from './vis/persona/persona.component';
 import { AddInfoComponent } from './vis/add-info/add-info.component';
 import { AddSectionComponent } from './add-section/add-section.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SaveBtnComponent } from './save-btn/save-btn.component';
+import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     EditBtnComponent,
     PersonaComponent,
     AddInfoComponent,
-    AddSectionComponent
+    AddSectionComponent,
+    SaveBtnComponent
     ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
+    CanDeactivateGuard
   ],
   bootstrap: [AppComponent]
 })

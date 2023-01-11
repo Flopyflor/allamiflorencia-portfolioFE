@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subscription, VirtualTimeScheduler } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Card } from 'src/app/Interfaces/Card';
 import { PersonalInfoService } from 'src/app/services/personal-info.service';
 import { UiService } from 'src/app/services/ui.service';
@@ -23,6 +23,9 @@ export class CardComponent implements OnInit {
     @Output() sendDeleteCard: EventEmitter<Card> = new EventEmitter;
 
     form: FormGroup
+
+    changed = false;
+    saveSub: Subscription;
   
     constructor(private formBuilder: FormBuilder, private uiService: UiService, private DB : PersonalInfoService) {
       this.form = this.formBuilder.group({
@@ -33,6 +36,16 @@ export class CardComponent implements OnInit {
 
       this.subscription = this.uiService.onToggle().subscribe((value) => {
         this.editable = value;
+      });
+
+      this.saveSub = this.uiService.onSaveAll().subscribe({
+        next:
+        ()=>{
+          if(this.changed){
+            this.updateDB();
+          }
+        },
+        error: (err)=>{DB.handleError(err)}
       });
 
      }
@@ -68,6 +81,8 @@ export class CardComponent implements OnInit {
       this.titulo = this.Titulo?.value;
       this.link = this.Link?.value;
       this.descripcion = this.Descripcion?.value;
+
+      this.changed=false;
     }
 
     eliminarDB():void{
@@ -78,9 +93,18 @@ export class CardComponent implements OnInit {
             titulo: this.titulo,
             link: this.link,
             descripcion: this.descripcion
-          })
+          });
+          this.changed = false;
+          this.saveSub.unsubscribe()
         }
       });
+    }
+
+    unsaved(){
+      if(this.form.dirty){
+        this.changed = true;
+        this.uiService.markUnsaved();
+      }
     }
   
   }
