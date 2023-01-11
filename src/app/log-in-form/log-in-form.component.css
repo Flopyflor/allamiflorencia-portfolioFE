@@ -14,7 +14,7 @@ form{
     border: 1px solid var(--color-secondary);
     margin: auto;
     margin-top: 10%;
-    box-shadow: 10px 10px var(--color-secondary);
+    box-shadow: 15px 15px var(--color-secondary);
 }
 button {
     width: 100%;

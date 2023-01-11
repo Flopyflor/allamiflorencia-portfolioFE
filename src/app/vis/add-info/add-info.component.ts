@@ -25,8 +25,12 @@ export class AddInfoComponent implements OnInit{
     var info = {
       seccion:this.seccion
     };
-    this.DB.createInfo(info).subscribe((id)=>{
-      this.sendAgregarInfo.emit(id);
+    this.DB.createInfo(info).subscribe({
+      next:
+      (id)=>{
+        this.sendAgregarInfo.emit(id);
+      },
+      error: (err)=>{this.DB.handleError(err);}
     });
   }
 

@@ -17,6 +17,7 @@ export class EditBtnComponent implements OnInit {
 
   ngOnInit(): void {
     this.autenticado = this.authService.isAutenticado();
+    this.editable = this.uiService.isEditable();
   }
 
   onClick(){

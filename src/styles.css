@@ -88,6 +88,34 @@ section+section {
     margin: 50px 0;
 }
 
+#guardando-notif{
+    position: absolute;
+    top: 4em;
+    border: 1px solid var(--color-secondary);
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white;
+}
+
+.ver{
+    animation: 1s mi-fade-out 2s;
+}
+
+.no-ver{
+    opacity: 0%;
+}
+
+@keyframes mi-fade-out {
+    from{
+        opacity: 100%;
+    }
+
+    to{
+        opacity: 0%;
+    }
+
+}
+
 @media (max-width:900px) {
     .card {
         z-index: -1;

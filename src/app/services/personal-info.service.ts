@@ -98,12 +98,15 @@ export class PersonalInfoService {
 
 
   handleError(err: HttpErrorResponse){
+    console.log("hubo un error");
+    
     if(err instanceof Error){
       alert("No hay conexión");
-    }else if(err.status == 403){
+    }else {
+      console.log("se venció la sesión");      
       sessionStorage.clear();
       this.authService.sesionVencida();
-      this.rutas.navigate(["/"]);
+      this.rutas.navigate(["/log-in"]);
     }
   }
 }

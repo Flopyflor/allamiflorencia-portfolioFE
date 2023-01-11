@@ -12,6 +12,7 @@ import { AuthenticationService } from '../services/authentication.service';
 export class LogInFormComponent implements OnInit {
 
   form : FormGroup;
+  loginInvalido = false;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthenticationService, private rutas: Router) { 
     this.form = this.formBuilder.group({
@@ -46,7 +47,7 @@ export class LogInFormComponent implements OnInit {
 
     this.authService.iniciarSesion(this.form.value).subscribe(
       {next: 
-        (data) => {
+        () => {
             this.rutas.navigate(["/inicio"]);
         },
       error: 
@@ -57,6 +58,8 @@ export class LogInFormComponent implements OnInit {
             console.log('Backend returned status code: ', err.status);
             console.log('Response body:', err.error);
           }
+          this.loginInvalido = true;
+          setTimeout(()=>{this.loginInvalido=false;}, 3000);
         }
       }
     );

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { UiService } from '../services/ui.service';
 
@@ -10,20 +11,27 @@ import { UiService } from '../services/ui.service';
 export class SaveBtnComponent implements OnInit {
 
   autenticado = false;
+  editando = false;
+  subEditando :Subscription;
+  guardando = false;
 
-  constructor(private uiService : UiService, private authService: AuthenticationService) { }
+  constructor(private uiService : UiService, private authService: AuthenticationService) { 
+    this.subEditando = uiService.onToggle().subscribe((data)=>{
+      this.editando = data;
+    })
+  }
 
   ngOnInit(): void {
     this.autenticado=this.authService.isAutenticado();
+    this.editando = this.uiService.isEditable();
   }
 
   saveAll(){
-    console.log("saving (savebtn)");
+    this.uiService.saveAll();
+
+    this.guardando = true;
+    setTimeout(()=>{this.guardando = false;}, 3000)
     
-    if(this.uiService.isUnsaved()){
-      console.log("is unsaved (savebtn)");
-      this.uiService.saveAll();      
-    }
     
   }
 

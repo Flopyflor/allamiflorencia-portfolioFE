@@ -65,7 +65,7 @@ export class UiService {
     console.log("ui service saving all");
     this.unsaved=false;
     
-    return this.saveSubject.next("");
+    this.saveSubject.next("");
   }
 
   onSaveAll(){

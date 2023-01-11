@@ -3,14 +3,16 @@
     <div class="form-input">
         <label for="username">Usuario: </label>
         <input type="text" id="username" formControlName="username" [ngClass]="{'required': usuarioInvalid()}">
-        <div [hidden]="!usuarioInvalid()" class="error">*este campo es obligatorio</div>
+        <div *ngIf="usuarioInvalid()" class="error">*este campo es obligatorio</div>
     </div>
 
     <div class="form-input">
         <label for="password">Contraseña: </label>
         <input type="password" id="password" formControlName="password" [ngClass]="{'required': passwordInvalid()}">
-        <div [hidden]="!passwordInvalid()" class="error">*este campo es obligatorio</div>
+        <div *ngIf="passwordInvalid()" class="error">*este campo es obligatorio</div>
     </div>
+
+    <div [ngClass]="(loginInvalido? 'ver' : 'no-ver')" class="error">Usuario o contraseña incorrectos.</div>
 
     <button type="submit" (click)="enviar($event)" [disabled] = "passwordInvalid() || usuarioInvalid()"
     [ngClass] = "(passwordInvalid() || usuarioInvalid())? 'desactivado' : 'enviar'">Enviar</button>

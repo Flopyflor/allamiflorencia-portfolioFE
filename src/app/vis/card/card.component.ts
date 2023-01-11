@@ -41,9 +41,7 @@ export class CardComponent implements OnInit {
       this.saveSub = this.uiService.onSaveAll().subscribe({
         next:
         ()=>{
-          if(this.changed){
             this.updateDB();
-          }
         },
         error: (err)=>{DB.handleError(err)}
       });
@@ -86,18 +84,15 @@ export class CardComponent implements OnInit {
     }
 
     eliminarDB():void{
-      this.DB.eliminarInfo(this.id).subscribe({
-        next: ()=>{
-          this.sendDeleteCard.emit({
-            id: this.id,
-            titulo: this.titulo,
-            link: this.link,
-            descripcion: this.descripcion
-          });
-          this.changed = false;
-          this.saveSub.unsubscribe()
-        }
+      this.sendDeleteCard.emit({
+        id: this.id,
+        titulo: this.titulo,
+        link: this.link,
+        descripcion: this.descripcion
       });
+      this.changed = false;
+      this.saveSub.unsubscribe()
+    
     }
 
     unsaved(){

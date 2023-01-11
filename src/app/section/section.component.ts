@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription, VirtualTimeScheduler } from 'rxjs';
+import { Observable, Subscription, VirtualTimeScheduler } from 'rxjs';
 import { Card } from '../Interfaces/Card';
 import { Section } from '../Interfaces/Section';
 import { PersonalInfoService } from '../services/personal-info.service';
@@ -35,6 +35,8 @@ export class SectionComponent implements OnInit {
   saveSub: Subscription;
   changed =false;
 
+  cambios: Observable<Object>[] = [];
+
   constructor(private uiService: UiService, private formBuilder: FormBuilder, private DB : PersonalInfoService) {
     this.subscription = this.uiService.onToggle().subscribe((value) => {
       this.editable = value;
@@ -47,8 +49,10 @@ export class SectionComponent implements OnInit {
     this.saveSub = this.uiService.onSaveAll().subscribe({
       next:
       ()=>{
-        if(this.changed){
-          this.actualizarSeccion();
+        for(var i = 0; i < this.cambios.length; i++){
+          this.cambios[i].subscribe({
+            error: (err)=>{DB.handleError(err)}
+          })
         }
       },
       error: (err)=>{DB.handleError(err)}
@@ -75,8 +79,17 @@ export class SectionComponent implements OnInit {
   }
 
   borrarInfo(card: Card){
-    var index = this.data.indexOf(card);
-    this.data.splice(index);
+    var index = this.data.findIndex((tarjeta)=>{return tarjeta.id == card.id}); 
+    console.log(this.data);
+    console.log(card);
+    console.log(index);
+    
+    this.data.splice(index, 1);
+
+    this.cambios.push(this.DB.eliminarInfo(card.id));
+
+    this.uiService.markUnsaved();
+    
   }
 
   actualizarSeccion(){
@@ -93,7 +106,6 @@ export class SectionComponent implements OnInit {
         } else {
           this.titulo = newTitulo;
           this.DB.updateSeccion(this.id, this.Titulo?.value).subscribe();
-          this.changed = false;
         }
       },
       error: (err) => {this.DB.handleError(err);}
@@ -115,7 +127,8 @@ export class SectionComponent implements OnInit {
             if(this.data.indexOf(card) == this.data.length-1){
               this.sendEliminar.emit(seccion);
             }
-          }
+          },
+          error: (err)=> {this.DB.handleError(err);}
         });
       } else {
         this.data = [];

@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { PersonalInfoService } from '../services/personal-info.service';
 import { Section } from '../Interfaces/Section';
 import { UiService } from '../services/ui.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -13,6 +14,9 @@ export class MainComponent implements OnInit {
   sections: Section[] = [{id: 0, titulo: "", tipo: "", data: [{id: 0, titulo: "", link: "", descripcion: ""}]}];
   titles : string[] =[];
 
+  cambios : Observable<Object>[] = [];
+  saveSub : Subscription;
+
 
   constructor( private DB:PersonalInfoService, private uiService: UiService) {
     this.DB.getSectionTitle().subscribe({
@@ -21,6 +25,20 @@ export class MainComponent implements OnInit {
         this.titles = lista;
       },
       error: (err) => {DB.handleError(err)}
+    });
+
+    this.saveSub = this.uiService.onSaveAll().subscribe({
+      next:
+      ()=>{
+        for(var i = 0; i < this.cambios.length; i++){
+          console.log("deleting sth");
+          
+          this.cambios[i].subscribe({
+            error: (err)=>{DB.handleError(err)}
+          })
+        }
+      },
+      error: (err)=>{DB.handleError(err)}
     });
    }
 
@@ -44,9 +62,10 @@ export class MainComponent implements OnInit {
       return sec.id == seccion.id;
     });  
     this.sections.splice(index, 1);
-    this.DB.eliminarSeccion(seccion.id).subscribe({
-      error: (err) =>{this.DB.handleError(err);}
-    });
+
+    this.cambios.push(this.DB.eliminarSeccion(seccion.id));
+
+    this.uiService.markUnsaved();
   }
 
   toggleDropdown() {

@@ -42,9 +42,7 @@ export class PersonaComponent implements OnInit {
     this.saveSub = this.uiService.onSaveAll().subscribe({
       next:
       ()=>{
-        if(this.changed){
           this.updateDBInfo();
-        }
       },
       error: (err)=>{DB.handleError(err)}
     });
@@ -52,6 +50,7 @@ export class PersonaComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.editable = this.uiService.isEditable();
   }
 
   get Nombre(){

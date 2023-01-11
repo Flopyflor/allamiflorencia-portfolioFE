@@ -1,1 +1,2 @@
-<a (click)="saveAll()" class="nav-btn" *ngIf="autenticado">Guardar cambios</a>
+<a (click)="saveAll()" class="nav-btn" *ngIf="autenticado && editando">Guardar cambios</a>
+<div id="guardando-notif" [ngClass]="(guardando ? 'ver' : 'no-ver') " >Cambios guardados!</div>
