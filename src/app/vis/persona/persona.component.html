@@ -5,8 +5,7 @@
     </div>
     <form action="" *ngIf="editable" [formGroup]="form" (change)="unsaved()">
         <input type="text" name="nombre" id="nombre" [value]="persona.nombre" formControlName="nombre" placeholder="Nombre"><br>
-        <input type="text" name="bio" id="bio" [value]="persona.bio" formControlName="bio" placeholder="Descripción"><br>
-        <!-- <button (click)="updateDBInfo()">Actualizar</button> -->
+        <textarea name="bio" id="bio" wrap="hard" rows="5" cols="20" [value]="persona.bio" formControlName="bio" placeholder="Descripción"></textarea>
 
     </form>
 </section>

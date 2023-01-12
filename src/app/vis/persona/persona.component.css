@@ -3,9 +3,13 @@ form {
     width: 100%;
 }
 
-input{
+input, textarea{
     width: 100%;
     margin: 5px;
+}
+
+p{
+    white-space: pre;
 }
 
 button {

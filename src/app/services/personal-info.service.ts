@@ -97,14 +97,14 @@ export class PersonalInfoService {
   }
 
 
-  handleError(err: HttpErrorResponse){
-    console.log("hubo un error");
-    
+  handleError(err: HttpErrorResponse){  
     if(err instanceof Error){
       alert("No hay conexión");
     }else {
-      console.log("se venció la sesión");      
-      sessionStorage.clear();
+      if(sessionStorage.getItem("currentUser")){
+        sessionStorage.clear();
+        window.alert("Se venció la sesión");      
+      }
       this.authService.sesionVencida();
       this.rutas.navigate(["/log-in"]);
     }
