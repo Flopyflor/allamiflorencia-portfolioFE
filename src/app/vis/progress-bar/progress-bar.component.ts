@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { Card } from 'src/app/Interfaces/Card';
 import { PersonalInfoService } from 'src/app/services/personal-info.service';
 import { UiService } from 'src/app/services/ui.service';
-import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-progress-bar',

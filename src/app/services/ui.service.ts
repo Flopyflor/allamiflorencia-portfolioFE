@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Injectable({
   providedIn: 'root'
@@ -52,8 +51,6 @@ export class UiService {
   }
 
   markUnsaved(){
-    console.log("sth is unsaved");
-    
     this.unsaved = true;
   }
 
@@ -62,7 +59,6 @@ export class UiService {
   }
 
   saveAll(){
-    console.log("ui service saving all");
     this.unsaved=false;
     
     this.saveSubject.next("");

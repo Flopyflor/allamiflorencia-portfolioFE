@@ -10,7 +10,8 @@
     [titulo]="grupo.titulo"
     [tipo] ="grupo.tipo"
     [data]="grupo.data"
-    (sendEliminar)="eliminarSeccion($event)"
+    (sendEliminar)="eliminarSeccion($event, grupo.data, grupo)"
+    (sendActualizarTitulos)="setTitulos()"
     >
     </app-section>
 

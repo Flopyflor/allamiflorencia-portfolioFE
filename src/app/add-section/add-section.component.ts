@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription, VirtualTimeScheduler } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Section } from '../Interfaces/Section';
 import { PersonalInfoService } from '../services/personal-info.service';
 import { UiService } from '../services/ui.service';
@@ -65,7 +65,7 @@ export class AddSectionComponent implements OnInit {
     subs.subscribe({
       next:
       (id)=>{
-        var section:Section = {id: id, titulo: this.Titulo?.value, tipo: this.Tipo?.value, data: [{id: 0, titulo: "", link: "", descripcion: ""}]};
+        var section:Section = {id: id, titulo: this.Titulo?.value, tipo: this.Tipo?.value, data: []};
         this.sendNewSection.emit(section);
         },
       error: (error)=>{this.DB.handleError(error);}

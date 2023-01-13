@@ -126,9 +126,7 @@ export class CardComponent implements OnInit {
     //storage get file
     getFile(event: any){
       this.changed = true;
-      this.file = event.target.files[0];
-      console.log(this.file);
-      
+      this.file = event.target.files[0];      
     }
   
   }

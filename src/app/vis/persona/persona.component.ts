@@ -138,9 +138,7 @@ export class PersonaComponent implements OnInit {
   //storage obtener el file
   getFile(event: any){
     this.changed = true;
-    this.file = event.target.files[0];
-    console.log(this.file);
-    
+    this.file = event.target.files[0];    
   }
 
 }

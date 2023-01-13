@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http'
-import { map, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Section } from '../Interfaces/Section';
 import { Person } from '../Interfaces/Person';
 import { AuthenticationService } from './authentication.service';
@@ -64,7 +64,7 @@ export class PersonalInfoService {
     );
   }
 
-  eliminarInfo(id: number){
+  eliminarInfo(id: number){    
     return this.http.post(this.url+this.authorizedOnly+this.borrarInfo, id);
   }
 
@@ -90,7 +90,7 @@ export class PersonalInfoService {
     return this.http.post(this.url+this.authorizedOnly+this.upSection, {id: id, titulo: titulo});
   }
 
-  eliminarSeccion(id: number): Observable<any>{
+  eliminarSeccion(id: number): Observable<any>{    
     return this.http.post(this.url+this.authorizedOnly+this.borrarSection, id);
   }
 
@@ -125,7 +125,6 @@ export class PersonalInfoService {
   }
 
   borrarImagen(filename: string) : Observable<any>{
-    console.log("estoy enviando a borrar una img");
     
     return this.http.post(this.url+this.authorizedOnly+this.deleteFile, filename);
   }

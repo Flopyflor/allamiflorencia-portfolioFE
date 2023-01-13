@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription, VirtualTimeScheduler } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Card } from '../Interfaces/Card';
-import { Section } from '../Interfaces/Section';
 import { PersonalInfoService } from '../services/personal-info.service';
 import { UiService } from '../services/ui.service';
 
@@ -23,7 +22,11 @@ export class SectionComponent implements OnInit {
     'descripcion': ''}
   ];
 
-  @Output() sendEliminar: EventEmitter<Section> = new EventEmitter;
+  @Output() sendEliminar: EventEmitter<Card[]> = new EventEmitter;
+  @Output() sendActualizarTitulos: EventEmitter<null> = new EventEmitter;
+
+  CARD = "card"
+  FILE_END = ".png"
 
   subscription: Subscription;
   editable: boolean=false;
@@ -35,7 +38,7 @@ export class SectionComponent implements OnInit {
   saveSub: Subscription;
   changed =false;
 
-  cambios: Observable<Object>[] = [];
+  aBorrar: Card[] = [];
 
   constructor(private uiService: UiService, private formBuilder: FormBuilder, private DB : PersonalInfoService) {
     this.subscription = this.uiService.onToggle().subscribe((value) => {
@@ -49,15 +52,23 @@ export class SectionComponent implements OnInit {
     this.saveSub = this.uiService.onSaveAll().subscribe({
       next:
       ()=>{
-        for(var i = 0; i < this.cambios.length; i++){ //estos cambios son los de eliminar. las updates se hacen localmente
-          this.cambios[i].subscribe({
+        for(var card of this.aBorrar){ //estos cambios son los de eliminar. las updates se hacen localmente
+          DB.eliminarInfo(card.id).subscribe({
             error: (err)=>{DB.handleError(err)}
           })
+
+          if (this.tipo == this.CARD){
+            DB.borrarImagen(card.id+this.FILE_END);
+          }
         }
+
+        this.aBorrar = [];
 
         if(this.changed){
           this.actualizarSeccion();
         }
+
+        this.changed = false;
       },
       error: (err)=>{DB.handleError(err)}
     });
@@ -87,17 +98,12 @@ export class SectionComponent implements OnInit {
 
   //agregar la orden de borrar una tarjeta a los cambios
   borrarInfo(card: Card){
-    var index = this.data.findIndex((tarjeta)=>{return tarjeta.id == card.id}); 
-    console.log(this.data);
-    console.log(card);
-    console.log(index);
-    
+    //borro la vista
+    var index = this.data.findIndex((tarjeta)=>{return tarjeta.id == card.id});     
     this.data.splice(index, 1);
 
-    this.cambios.push(this.DB.eliminarInfo(card.id));
-    if(this.tipo == "card"){
-      this.cambios.push(this.DB.borrarImagen(card.id+".png"));
-    }
+    //me pongo en la lista borrarlos
+    this.aBorrar.push(card);
 
     this.uiService.markUnsaved();
     
@@ -118,7 +124,9 @@ export class SectionComponent implements OnInit {
           alert("No puede haber dos secciones con el mismo nombre");
         } else {
           this.titulo = newTitulo;
-          this.DB.updateSeccion(this.id, this.Titulo?.value).subscribe();
+          this.DB.updateSeccion(this.id, this.Titulo?.value).subscribe({
+            next: ()=>{this.sendActualizarTitulos.emit()}
+          });
         }
       },
       error: (err) => {this.DB.handleError(err);}
@@ -126,42 +134,10 @@ export class SectionComponent implements OnInit {
   }
 
   //Eliminar secciones
-  eliminarSeccion(){
-    var seccion:Section = {
-      id : this.id,
-      titulo: this.titulo,
-      tipo: this.tipo,
-      data: this.data
-    };
-
-    for(var card of this.data){ //eliminar cards primero
-      if (card.id!=0){ //si la card estaba en la db y es real
-
-        this.DB.eliminarInfo(card.id).subscribe({
-          next:()=>{
-            if(this.data.indexOf(card) == this.data.length-1){ //TODO: creo que esto lo puedo sacar si...
-              this.sendEliminar.emit(seccion);
-            }
-          },
-          error: (err)=> {this.DB.handleError(err);}
-        });
-
-        if(this.tipo=="card"){ //borrar las imgs tmb
-          this.DB.borrarImagen(card.id+".png").subscribe({
-            error: (err)=>{this.DB.handleError(err)}
-          })
-        }
-
-      } else {
-        this.data = [];
-      }
-    };
-
-    if(!this.data.length){ //TODO: ...saco este if
-      this.sendEliminar.emit(seccion);
-    }
-
+  eliminarSeccion(){    
+    this.sendEliminar.emit(this.aBorrar);
     this.changed=false;
+    this.saveSub.unsubscribe();
     
   }
 

@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UiService } from '../services/ui.service';
 
@@ -25,9 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleDropdown(){
-
     this.uiService.toggleDropdown();
-    console.log(this.dropdownVisible);
     
   }
 
