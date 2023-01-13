@@ -4,12 +4,13 @@ form {
 }
 
 input, textarea{
-    width: 100%;
+    width: 80%;
     margin: 5px;
 }
 
 p{
     white-space: pre;
+    overflow-wrap: break-word;
 }
 
 button {
@@ -20,4 +21,20 @@ button {
 
 button:hover{
     filter: brightness(180%) saturate(60%) hue-rotate(40deg);
+}
+
+.persona-img{
+    width: 20%;
+}
+
+#presentacion-contenedor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#presentacion-texto {
+    max-width: 80%;
+    overflow-wrap: break-word;
 }

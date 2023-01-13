@@ -1,11 +1,16 @@
 <section id="presentación">
-    <div *ngIf="!editable">
-        <h1>{{persona.nombre}}</h1>
-        <p>{{persona.bio}}</p>
+    <div *ngIf="!editable" id="presentacion-contenedor">
+        <div id="presentacion-texto">
+            <h1>{{persona.nombre}}</h1>
+            <p>{{persona.bio}}</p>
+        </div>
+        <img [src]="fileSrc" [alt]="persona.nombre" class="persona-img">
     </div>
     <form action="" *ngIf="editable" [formGroup]="form" (change)="unsaved()">
         <input type="text" name="nombre" id="nombre" [value]="persona.nombre" formControlName="nombre" placeholder="Nombre"><br>
         <textarea name="bio" id="bio" wrap="hard" rows="5" cols="20" [value]="persona.bio" formControlName="bio" placeholder="Descripción"></textarea>
 
+        <input type="file" accept=".jpg,.png,.gif,jpeg" (change)="getFile($event)">
     </form>
+
 </section>

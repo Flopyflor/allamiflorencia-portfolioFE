@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { Card } from 'src/app/Interfaces/Card';
 import { PersonalInfoService } from 'src/app/services/personal-info.service';
@@ -26,10 +27,13 @@ export class CardComponent implements OnInit {
 
     changed = false;
     saveSub: Subscription;
+
+    file : File | null = null;
+    filename = ".png";
+    fileSrc = "";
   
-    constructor(private formBuilder: FormBuilder, private uiService: UiService, private DB : PersonalInfoService) {
+    constructor(private formBuilder: FormBuilder, private uiService: UiService, private DB : PersonalInfoService, private sanitizer: DomSanitizer) {
       this.form = this.formBuilder.group({
-        link : [this.link, []],
         titulo: [this.titulo, []],
         descripcion: [this.descripcion, []]
       });
@@ -49,14 +53,14 @@ export class CardComponent implements OnInit {
      }
   
     ngOnInit(): void {
-      this.Link?.setValue(this.link);
       this.Titulo?.setValue(this.titulo);
       this.Descripcion?.setValue(this.descripcion);
       this.editable = this.uiService.isEditable();
-    }
+      this.filename = this.id+this.filename;
 
-    get Link(){
-      return this.form.get('link');
+      this.DB.traerImagen(this.filename).subscribe((img) =>{     
+        this.fileSrc = this.sanitizer.bypassSecurityTrustResourceUrl(img) as string;
+       });
     }
 
     get Titulo(){
@@ -71,13 +75,26 @@ export class CardComponent implements OnInit {
       this.DB.updateInfo({
         id: this.id,
         titulo: this.Titulo?.value,
-        link: this.Link?.value,
         descripcion: this.Descripcion?.value,
         seccion: this.seccion
       });
 
+      if(this.file){        
+        var fileReader = new FileReader();
+  
+        fileReader.readAsDataURL(this.file);
+   
+        fileReader.onload = () =>{
+          if(this.file){
+            this.DB.enviarImagen(this.filename, fileReader.result).subscribe({
+              error: (err)=>{this.DB.handleError(err)}
+            });
+            this.fileSrc = fileReader.result as string;
+          }
+        }
+      }
+
       this.titulo = this.Titulo?.value;
-      this.link = this.Link?.value;
       this.descripcion = this.Descripcion?.value;
 
       this.changed=false;
@@ -100,6 +117,13 @@ export class CardComponent implements OnInit {
         this.changed = true;
         this.uiService.markUnsaved();
       }
+    }
+
+    //storage
+    getFile(event: any){
+      this.file = event.target.files[0];
+      console.log(this.file);
+      
     }
   
   }

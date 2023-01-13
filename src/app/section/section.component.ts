@@ -87,6 +87,9 @@ export class SectionComponent implements OnInit {
     this.data.splice(index, 1);
 
     this.cambios.push(this.DB.eliminarInfo(card.id));
+    if(this.tipo == "card"){
+      this.cambios.push(this.DB.borrarImagen(card.id+".png"));
+    }
 
     this.uiService.markUnsaved();
     

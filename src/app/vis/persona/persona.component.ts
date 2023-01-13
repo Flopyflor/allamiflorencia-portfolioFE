@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { Person } from 'src/app/Interfaces/Person';
 import { PersonalInfoService } from 'src/app/services/personal-info.service';
@@ -17,10 +18,16 @@ export class PersonaComponent implements OnInit {
   persona: Person = {id: 0, nombre: "", bio: ""};
   form: FormGroup;
 
+
+  //file declaration
+  filename = "persona.png";
+  file : File | null = null;
+  fileSrc = "";
+
   changed = false;
   saveSub: Subscription;
 
-  constructor(private DB:PersonalInfoService, private uiService: UiService, private formBuilder: FormBuilder) {
+  constructor(private DB:PersonalInfoService, private uiService: UiService, private formBuilder: FormBuilder, private sanitizer : DomSanitizer) {
     this.form = this.formBuilder.group({
       nombre : [this.persona.nombre, []],
       bio: [this.persona.bio, []]
@@ -46,11 +53,18 @@ export class PersonaComponent implements OnInit {
       },
       error: (err)=>{DB.handleError(err)}
     });
+
+    // tratando de recibir la img del backend
+
+    this.DB.traerImagen(this.filename).subscribe((img) =>{     
+       this.fileSrc = sanitizer.bypassSecurityTrustResourceUrl(img) as string;
+      });
     
    }
 
   ngOnInit(): void {
     this.editable = this.uiService.isEditable();
+
   }
 
   get Nombre(){
@@ -70,6 +84,22 @@ export class PersonaComponent implements OnInit {
     this.persona.nombre = this.Nombre?.value;
     this.persona.bio = this.Bio?.value;
     this.changed=false;
+
+    //enviar la img
+
+    if(this.file){
+      var fileReader = new FileReader();
+
+      fileReader.readAsDataURL(this.file);
+ 
+      fileReader.onload = () =>{
+        if(this.file){
+          this.DB.enviarImagen(this.filename, fileReader.result).subscribe({
+            error: (err)=>{this.DB.handleError(err)}
+          });
+        }
+      }
+    }
   }
 
   ponerValores():void {
@@ -82,6 +112,13 @@ export class PersonaComponent implements OnInit {
       this.uiService.markUnsaved();
       this.changed=true;
     }
+  }
+
+  //storage
+  getFile(event: any){
+    this.file = event.target.files[0];
+    console.log(this.file);
+    
   }
 
 }
