@@ -42,7 +42,9 @@ export class ProjectComponent implements OnInit {
       this.saveSub = this.uiService.onSaveAll().subscribe({
         next:
         ()=>{
+          if(this.changed){
             this.updateDB();
+          }
         },
         error: (err)=>{DB.handleError(err)}
       });
@@ -58,6 +60,8 @@ export class ProjectComponent implements OnInit {
       this.editable=this.uiService.isEditable();
     }
 
+
+    //Getters
     get Link(){
       return this.form.get('link');
     }
@@ -70,6 +74,8 @@ export class ProjectComponent implements OnInit {
       return this.form.get('descripcion');
     }
 
+
+    //DB
     updateDB(): void{
       this.DB.updateInfo({
         id: this.id,
@@ -94,9 +100,9 @@ export class ProjectComponent implements OnInit {
         descripcion: this.descripcion
       });
       this.changed = false;
-      this.saveSub.unsubscribe()
     }
 
+    //marcar cambios
     unsaved(){
       if(this.form.dirty){
         this.changed=true;

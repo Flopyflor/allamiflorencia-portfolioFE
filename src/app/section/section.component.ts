@@ -49,10 +49,14 @@ export class SectionComponent implements OnInit {
     this.saveSub = this.uiService.onSaveAll().subscribe({
       next:
       ()=>{
-        for(var i = 0; i < this.cambios.length; i++){
+        for(var i = 0; i < this.cambios.length; i++){ //estos cambios son los de eliminar. las updates se hacen localmente
           this.cambios[i].subscribe({
             error: (err)=>{DB.handleError(err)}
           })
+        }
+
+        if(this.changed){
+          this.actualizarSeccion();
         }
       },
       error: (err)=>{DB.handleError(err)}
@@ -64,10 +68,12 @@ export class SectionComponent implements OnInit {
     this.Titulo?.setValue(this.titulo);
   }
 
+  //Getter
   get Titulo(){
     return this.sectionForm.get("titulo");
   }
 
+  //cuando se agrega una tarjeta
   agregarInfo(id: any){
     var card : Card = {
       id: id,
@@ -78,6 +84,8 @@ export class SectionComponent implements OnInit {
     this.data.push(card);
   }
 
+
+  //agregar la orden de borrar una tarjeta a los cambios
   borrarInfo(card: Card){
     var index = this.data.findIndex((tarjeta)=>{return tarjeta.id == card.id}); 
     console.log(this.data);
@@ -95,6 +103,8 @@ export class SectionComponent implements OnInit {
     
   }
 
+
+  //seccion
   actualizarSeccion(){
     var newTitulo = this.Titulo?.value;
 
@@ -103,7 +113,7 @@ export class SectionComponent implements OnInit {
       (data)=>{
         this.titulos = data as string[];
   
-        if(this.titulos.includes(newTitulo)){
+        if(this.titulos.includes(newTitulo)){ //deshacer si hace secciones con el mismo nombre
           this.Titulo?.setValue(this.titulo);
           alert("No puede haber dos secciones con el mismo nombre");
         } else {
@@ -115,6 +125,7 @@ export class SectionComponent implements OnInit {
     });
   }
 
+  //Eliminar secciones
   eliminarSeccion(){
     var seccion:Section = {
       id : this.id,
@@ -123,34 +134,39 @@ export class SectionComponent implements OnInit {
       data: this.data
     };
 
-    for(var card of this.data){
-      if (card.id!=0){
+    for(var card of this.data){ //eliminar cards primero
+      if (card.id!=0){ //si la card estaba en la db y es real
+
         this.DB.eliminarInfo(card.id).subscribe({
           next:()=>{
-            if(this.data.indexOf(card) == this.data.length-1){
+            if(this.data.indexOf(card) == this.data.length-1){ //TODO: creo que esto lo puedo sacar si...
               this.sendEliminar.emit(seccion);
             }
           },
           error: (err)=> {this.DB.handleError(err);}
         });
+
+        if(this.tipo=="card"){ //borrar las imgs tmb
+          this.DB.borrarImagen(card.id+".png").subscribe({
+            error: (err)=>{this.DB.handleError(err)}
+          })
+        }
+
       } else {
         this.data = [];
       }
     };
 
-    if(!this.data.length){
+    if(!this.data.length){ //TODO: ...saco este if
       this.sendEliminar.emit(seccion);
     }
 
     this.changed=false;
-    this.saveSub.unsubscribe()
     
   }
 
   unsaved(){
-    if(this.sectionForm.dirty){
-      this.uiService.markUnsaved();
-      this.changed = true;
-    } 
+    this.uiService.markUnsaved();
+    this.changed = true;
   }
 }

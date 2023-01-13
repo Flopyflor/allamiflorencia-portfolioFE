@@ -45,7 +45,9 @@ export class CardComponent implements OnInit {
       this.saveSub = this.uiService.onSaveAll().subscribe({
         next:
         ()=>{
+          if(this.changed){
             this.updateDB();
+          }
         },
         error: (err)=>{DB.handleError(err)}
       });
@@ -63,6 +65,8 @@ export class CardComponent implements OnInit {
        });
     }
 
+
+    //getters
     get Titulo(){
       return this.form.get('titulo');
     }
@@ -71,19 +75,19 @@ export class CardComponent implements OnInit {
       return this.form.get('descripcion');
     }
 
+    //subir a la DB
     updateDB(): void{
       this.DB.updateInfo({
         id: this.id,
         titulo: this.Titulo?.value,
         descripcion: this.Descripcion?.value,
         seccion: this.seccion
-      });
+      }); //auto suscribe pq no tiene retorno
 
+      //subir file y actualizar
       if(this.file){        
         var fileReader = new FileReader();
-  
         fileReader.readAsDataURL(this.file);
-   
         fileReader.onload = () =>{
           if(this.file){
             this.DB.enviarImagen(this.filename, fileReader.result).subscribe({
@@ -100,6 +104,7 @@ export class CardComponent implements OnInit {
       this.changed=false;
     }
 
+    //enviar orden de eliminar
     eliminarDB():void{
       this.sendDeleteCard.emit({
         id: this.id,
@@ -107,20 +112,20 @@ export class CardComponent implements OnInit {
         link: this.link,
         descripcion: this.descripcion
       });
+      //este elemento no va a necesitar ser actualizado en la db
       this.changed = false;
-      this.saveSub.unsubscribe()
     
     }
 
+    //marcar cambiado
     unsaved(){
-      if(this.form.dirty){
         this.changed = true;
         this.uiService.markUnsaved();
-      }
     }
 
-    //storage
+    //storage get file
     getFile(event: any){
+      this.changed = true;
       this.file = event.target.files[0];
       console.log(this.file);
       

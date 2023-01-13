@@ -42,7 +42,9 @@ export class ProgressBarComponent implements OnInit {
       this.saveSub = this.uiService.onSaveAll().subscribe({
         next:
         ()=>{
+          if(this.changed){
             this.updateDB();
+          }
         },
         error: (err)=>{DB.handleError(err)}
       });
@@ -57,6 +59,8 @@ export class ProgressBarComponent implements OnInit {
       this.editable=this.uiService.isEditable();
     }
 
+
+    //Getters
     get Link(){
       return this.form.get('link');
     }
@@ -69,6 +73,7 @@ export class ProgressBarComponent implements OnInit {
       return this.form.get('descripcion');
     }
 
+    //db
     updateDB(): void{
       this.DB.updateInfo({
         id: this.id,
@@ -93,14 +98,13 @@ export class ProgressBarComponent implements OnInit {
         descripcion: this.descripcion
       });
       this.changed = false;
-      this.saveSub.unsubscribe()
     }
 
+
+    //mark changes
     unsaved(){
-      if(this.form.dirty){
         this.uiService.markUnsaved();
         this.changed=true;
-      }
     }
 
 }

@@ -1,7 +1,6 @@
 <section [id]="titulo">
     <form action="" [formGroup]="sectionForm" *ngIf="editable" >
         <input type="text" class="header-input" formControlName="titulo" [value]="titulo" (change)="unsaved()">
-        <!-- <button (click)="actualizarSeccion()">Actualizar</button> -->
         <button (click)="eliminarSeccion()">Eliminar</button>
     </form>
     <h2 *ngIf="!editable">{{titulo}}</h2>

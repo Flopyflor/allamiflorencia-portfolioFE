@@ -8,10 +8,10 @@ input, textarea{
     margin: 5px;
 }
 
-p{
+/* p{
     white-space: pre;
     overflow-wrap: break-word;
-}
+} */
 
 button {
     background-color: var(--color-primary);
@@ -25,6 +25,8 @@ button:hover{
 
 .persona-img{
     width: 20%;
+    height:fit-content;
+    align-self: center;
 }
 
 #presentacion-contenedor{

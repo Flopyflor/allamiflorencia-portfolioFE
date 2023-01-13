@@ -2,7 +2,7 @@
     <div *ngIf="!editable" id="presentacion-contenedor">
         <div id="presentacion-texto">
             <h1>{{persona.nombre}}</h1>
-            <p>{{persona.bio}}</p>
+            <p *ngFor="let par of bioFormat">{{par}}</p>
         </div>
         <img [src]="fileSrc" [alt]="persona.nombre" class="persona-img">
     </div>

@@ -17,6 +17,7 @@ export class PersonaComponent implements OnInit {
   subscription?: Subscription;
   persona: Person = {id: 0, nombre: "", bio: ""};
   form: FormGroup;
+  bioFormat = [""];
 
 
   //file declaration
@@ -28,10 +29,14 @@ export class PersonaComponent implements OnInit {
   saveSub: Subscription;
 
   constructor(private DB:PersonalInfoService, private uiService: UiService, private formBuilder: FormBuilder, private sanitizer : DomSanitizer) {
+    
+    //form
     this.form = this.formBuilder.group({
       nombre : [this.persona.nombre, []],
       bio: [this.persona.bio, []]
     });
+
+    //get data de la db
 
     this.DB.getPersonalInfo().subscribe({
       next:
@@ -42,14 +47,20 @@ export class PersonaComponent implements OnInit {
       error: (error) => {DB.handleError(error)}
     });
 
+    //suscribir al editable
+
     this.subscription = this.uiService.onToggle().subscribe((value)=>{
       this.editable=value;
     });
 
+    //suscribir al update all
+
     this.saveSub = this.uiService.onSaveAll().subscribe({
       next:
       ()=>{
+        if(this.changed){
           this.updateDBInfo();
+        }
       },
       error: (err)=>{DB.handleError(err)}
     });
@@ -67,6 +78,8 @@ export class PersonaComponent implements OnInit {
 
   }
 
+  //getters
+
   get Nombre(){
     return this.form.get("nombre");
   }
@@ -74,6 +87,10 @@ export class PersonaComponent implements OnInit {
   get Bio(){
     return this.form.get("bio");
   }
+
+
+
+  //updates
 
   updateDBInfo(): void{
     this.DB.updatePersona({
@@ -83,6 +100,7 @@ export class PersonaComponent implements OnInit {
     });
     this.persona.nombre = this.Nombre?.value;
     this.persona.bio = this.Bio?.value;
+    this.bioFormat = this.persona.bio.split("\n");
     this.changed=false;
 
     //enviar la img
@@ -102,20 +120,24 @@ export class PersonaComponent implements OnInit {
     }
   }
 
+  //actualizar vista al tener los valores de la DB (primera vez)
+
   ponerValores():void {
     this.Nombre?.setValue(this.persona.nombre);
     this.Bio?.setValue(this.persona.bio);
+    this.bioFormat = this.persona.bio.split("\n");
   }
+
+  //marcar cambios
 
   unsaved(){
-    if(this.form.dirty){
-      this.uiService.markUnsaved();
-      this.changed=true;
-    }
+    this.uiService.markUnsaved();
+    this.changed=true;
   }
 
-  //storage
+  //storage obtener el file
   getFile(event: any){
+    this.changed = true;
     this.file = event.target.files[0];
     console.log(this.file);
     

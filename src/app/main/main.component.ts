@@ -30,10 +30,8 @@ export class MainComponent implements OnInit {
     this.saveSub = this.uiService.onSaveAll().subscribe({
       next:
       ()=>{
-        for(var i = 0; i < this.cambios.length; i++){
-          console.log("deleting sth");
-          
-          this.cambios[i].subscribe({
+        for(var i = 0; i < this.cambios.length; i++){          
+          this.cambios[i].subscribe({ //borrando secciones
             error: (err)=>{DB.handleError(err)}
           })
         }
@@ -52,10 +50,14 @@ export class MainComponent implements OnInit {
   });
   }
 
+
+  //agregar secciones
   addSection(section: Section){
     this.sections.push(section);
   }
 
+
+  //borrar secciones (agregarlos a la cola)
   eliminarSeccion(seccion : Section){
     this.titles.splice(this.titles.findIndex(tit =>{return tit == seccion.titulo}), 1);
     var index = this.sections.findIndex((sec)=>{
@@ -68,11 +70,15 @@ export class MainComponent implements OnInit {
     this.uiService.markUnsaved();
   }
 
+
+  //dropdown para pantallas pequeñas
   toggleDropdown() {
     this.uiService.closeDropdown();
     
   }  
 
+
+  //irse sin guardar
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification(event: any) {
     
