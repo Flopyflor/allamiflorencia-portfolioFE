@@ -20,15 +20,10 @@ export class PersonaComponent implements OnInit {
   bioFormat = [""];
 
 
-  //file declaration
-  filename = "persona.png";
-  file : File | null = null;
-  fileSrc = "";
-
   changed = false;
   saveSub: Subscription;
 
-  constructor(private DB:PersonalInfoService, private uiService: UiService, private formBuilder: FormBuilder, private sanitizer : DomSanitizer) {
+  constructor(private DB:PersonalInfoService, private uiService: UiService, private formBuilder: FormBuilder) {
     
     //form
     this.form = this.formBuilder.group({
@@ -64,12 +59,6 @@ export class PersonaComponent implements OnInit {
       },
       error: (err)=>{DB.handleError(err)}
     });
-
-    // tratando de recibir la img del backend
-
-    this.DB.traerImagen(this.filename).subscribe((img) =>{     
-       this.fileSrc = sanitizer.bypassSecurityTrustResourceUrl(img) as string;
-      });
     
    }
 
@@ -103,21 +92,6 @@ export class PersonaComponent implements OnInit {
     this.bioFormat = this.persona.bio.split("\n");
     this.changed=false;
 
-    //enviar la img
-
-    if(this.file){
-      var fileReader = new FileReader();
-
-      fileReader.readAsDataURL(this.file);
- 
-      fileReader.onload = () =>{
-        if(this.file){
-          this.DB.enviarImagen(this.filename, fileReader.result).subscribe({
-            error: (err)=>{this.DB.handleError(err)}
-          });
-        }
-      }
-    }
   }
 
   //actualizar vista al tener los valores de la DB (primera vez)
@@ -133,12 +107,6 @@ export class PersonaComponent implements OnInit {
   unsaved(){
     this.uiService.markUnsaved();
     this.changed=true;
-  }
-
-  //storage obtener el file
-  getFile(event: any){
-    this.changed = true;
-    this.file = event.target.files[0];    
   }
 
 }

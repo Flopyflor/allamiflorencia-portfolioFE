@@ -28,9 +28,6 @@ export class CardComponent implements OnInit {
     changed = false;
     saveSub: Subscription;
 
-    file : File | null = null;
-    filename = ".png";
-    fileSrc = "";
   
     constructor(private formBuilder: FormBuilder, private uiService: UiService, private DB : PersonalInfoService, private sanitizer: DomSanitizer) {
       this.form = this.formBuilder.group({
@@ -58,11 +55,7 @@ export class CardComponent implements OnInit {
       this.Titulo?.setValue(this.titulo);
       this.Descripcion?.setValue(this.descripcion);
       this.editable = this.uiService.isEditable();
-      this.filename = this.id+this.filename;
 
-      this.DB.traerImagen(this.filename).subscribe((img) =>{     
-        this.fileSrc = this.sanitizer.bypassSecurityTrustResourceUrl(img) as string;
-       });
     }
 
 
@@ -83,20 +76,6 @@ export class CardComponent implements OnInit {
         descripcion: this.Descripcion?.value,
         seccion: this.seccion
       }); //auto suscribe pq no tiene retorno
-
-      //subir file y actualizar
-      if(this.file){        
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL(this.file);
-        fileReader.onload = () =>{
-          if(this.file){
-            this.DB.enviarImagen(this.filename, fileReader.result).subscribe({
-              error: (err)=>{this.DB.handleError(err)}
-            });
-            this.fileSrc = fileReader.result as string;
-          }
-        }
-      }
 
       this.titulo = this.Titulo?.value;
       this.descripcion = this.Descripcion?.value;
@@ -121,12 +100,6 @@ export class CardComponent implements OnInit {
     unsaved(){
         this.changed = true;
         this.uiService.markUnsaved();
-    }
-
-    //storage get file
-    getFile(event: any){
-      this.changed = true;
-      this.file = event.target.files[0];      
     }
   
   }

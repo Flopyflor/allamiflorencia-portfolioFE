@@ -25,8 +25,6 @@ export class SectionComponent implements OnInit {
   @Output() sendEliminar: EventEmitter<Card[]> = new EventEmitter;
   @Output() sendActualizarTitulos: EventEmitter<null> = new EventEmitter;
 
-  CARD = "card"
-  FILE_END = ".png"
 
   subscription: Subscription;
   editable: boolean=false;
@@ -56,10 +54,6 @@ export class SectionComponent implements OnInit {
           DB.eliminarInfo(card.id).subscribe({
             error: (err)=>{DB.handleError(err)}
           })
-
-          if (this.tipo == this.CARD){
-            DB.borrarImagen(card.id+this.FILE_END);
-          }
         }
 
         this.aBorrar = [];

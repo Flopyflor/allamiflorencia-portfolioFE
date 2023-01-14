@@ -31,9 +31,6 @@ export class PersonalInfoService {
   private borrarSection = "borrar/seccion";
   private sectionsTitles = "traer/secciones-titulo";
 
-  private saveFile = "saveFile";
-  private loadFile = "loadFile";
-  private deleteFile = "deleteFile";
 
   id: number = 0;
 
@@ -111,23 +108,6 @@ export class PersonalInfoService {
       this.authService.sesionVencida();
       this.rutas.navigate(["/log-in"]);
     }
-  }
-
-
-  enviarImagen(nombre: string, img: string | ArrayBuffer | null){
-    return this.http.post(this.url+this.authorizedOnly+this.saveFile,
-      {nombre: nombre,
-      imagen: img}
-      )
-  }
-
-  traerImagen(filename: string){
-    return this.http.post(this.url+this.noAuth+ this.loadFile, filename, {responseType:'text'});
-  }
-
-  borrarImagen(filename: string) : Observable<any>{
-    
-    return this.http.post(this.url+this.authorizedOnly+this.deleteFile, filename);
   }
 
 }

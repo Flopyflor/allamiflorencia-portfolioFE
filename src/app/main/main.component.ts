@@ -12,15 +12,12 @@ import { Card } from '../Interfaces/Card';
 })
 export class MainComponent implements OnInit {
 
-  CARD = "card";
-  FILE_END = ".png"
 
   sections: Section[] = [{id: 0, titulo: "", tipo: "", data: [{id: 0, titulo: "", link: "", descripcion: ""}]}];
   titles : string[] =[];
 
   borrarInfos : Observable<Object>[] = [];
   cambiosSecc : Observable<Object>[] = [];
-  borrarImgs : Observable<Object>[] = [];
   saveSub : Subscription;
 
 
@@ -57,12 +54,6 @@ export class MainComponent implements OnInit {
             },
             error: (err)=>{DB.handleError(err)}
           });
-        }
-
-        for(var img of this.borrarImgs){
-          img.subscribe({
-            error: (err) => {DB.handleError(err)}
-          })
         }
 
         if(this.borrarInfos.length == 0){ //por si no hay ninguno acá y lo de antes no se ejecutó
@@ -127,10 +118,6 @@ export class MainComponent implements OnInit {
     var infos = cardsDescartadas.concat(cardsMantenidas);
     for (var card of infos){
       this.borrarInfos.push(this.DB.eliminarInfo(card.id));
-
-      if(seccion.tipo == this.CARD) {
-        this.borrarImgs.push(this.DB.borrarImagen(card.id+this.FILE_END));
-      }
     }
 
     this.cambiosSecc.push(this.DB.eliminarSeccion(seccion.id));
