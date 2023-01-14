@@ -103,6 +103,7 @@ export class PersonalInfoService {
     if(err instanceof Error){
       alert("No hay conexión");
     }else {
+      console.warn(err.status, err.error, err.message);
       if(sessionStorage.getItem("currentUser")){
         sessionStorage.clear();
         window.alert("Se venció la sesión");      
