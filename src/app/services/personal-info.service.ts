@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class PersonalInfoService {
 
-  private url = "http://localhost:8080/"
+  private url = "https://allamiflorencia-portfolio.fly.dev/"
 
   private sections = "traer/secciones";
   private person = "traer/persona";

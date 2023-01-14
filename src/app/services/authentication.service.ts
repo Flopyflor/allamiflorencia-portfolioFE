@@ -7,7 +7,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 })
 export class AuthenticationService {
 
-  url="http://localhost:8080/api/no-auth/authenticate";
+  url="https://allamiflorencia-portfolio.fly.dev/api/no-auth/authenticate";
   currentUserSubject: BehaviorSubject<any>;
 
   constructor(private http: HttpClient) { 
