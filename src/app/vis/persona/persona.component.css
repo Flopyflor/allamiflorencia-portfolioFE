@@ -37,6 +37,12 @@ button:hover{
 }
 
 #presentacion-texto {
-    max-width: 80%;
+    max-width: 100%;
     overflow-wrap: break-word;
+}
+
+@media (max-width:900px) {
+    #presentacion-texto{
+        text-align: center;
+    }
 }

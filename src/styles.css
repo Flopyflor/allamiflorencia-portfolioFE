@@ -119,6 +119,7 @@ section+section {
 @media (max-width:900px) {
     .card {
         z-index: -1;
+        min-width: 100%;
     }
 
     header {
@@ -161,5 +162,9 @@ section+section {
 
     .dropdown-btn{
         display: block;
+    }
+
+    .card{
+        min-width: 100px;
     }
 }
