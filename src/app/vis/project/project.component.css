@@ -19,4 +19,13 @@ button:hover{
     flex-direction: column;
     row-gap: 5px;
     align-content: center;
+    margin: 0;
+}
+
+a{
+    padding: 0%;
+    z-index: 2000;
+    position: relative;
+    display: inline-block;
+    height: 2em;
 }

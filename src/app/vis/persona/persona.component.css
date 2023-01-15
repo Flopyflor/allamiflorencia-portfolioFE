@@ -8,11 +8,6 @@ input, textarea{
     margin: 5px;
 }
 
-/* p{
-    white-space: pre;
-    overflow-wrap: break-word;
-} */
-
 button {
     background-color: var(--color-primary);
     filter: brightness(190%) saturate(60%) hue-rotate(40deg);
@@ -23,21 +18,22 @@ button:hover{
     filter: brightness(180%) saturate(60%) hue-rotate(40deg);
 }
 
-#presentacion-contenedor{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
 #presentacion-texto {
     max-width: 100%;
-    overflow-wrap: break-word;
 }
 
 @media (max-width:900px) {
     #presentacion-texto{
         text-align: center;
         margin: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+
+    h1{
+        text-align: center;
     }
 }
