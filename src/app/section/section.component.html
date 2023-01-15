@@ -7,7 +7,7 @@
     
     <div class="grid-container" [ngSwitch]="tipo" >
 
-        <div class="row row-cols-1 row-cols-sm-3 g-4" *ngSwitchCase="'card'" [id]="titulo+'-'+'card'">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" *ngSwitchCase="'card'" [id]="titulo+'-'+'card'">
             <app-card class="col"
             *ngFor="let card of data"
             [seccion]="titulo"
@@ -28,7 +28,7 @@
 
         </div>
 
-        <div class="row row-cols-1 row-cols-sm-3 g-4" *ngSwitchCase="'progress-bar'" [id]="titulo+'-'+'progress-bar'">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" *ngSwitchCase="'progress-bar'" [id]="titulo+'-'+'progress-bar'">
             <app-progress-bar class="col"
             *ngFor="let card of data"
             [seccion]="titulo"
@@ -48,7 +48,7 @@
             ></app-add-info>
         </div>
 
-        <div class="row row-cols-1 row-cols-sm-3 g-4" *ngSwitchCase="'project'" [id]="titulo+'-'+'project'">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" *ngSwitchCase="'project'" [id]="titulo+'-'+'project'">
             <app-project class="col"
             *ngFor="let card of data"
             [seccion]="titulo"

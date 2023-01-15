@@ -4,7 +4,7 @@ form {
 }
 
 input, textarea{
-    width: 80%;
+    width: 100%;
     margin: 5px;
 }
 
@@ -21,12 +21,6 @@ button {
 
 button:hover{
     filter: brightness(180%) saturate(60%) hue-rotate(40deg);
-}
-
-.persona-img{
-    width: 20%;
-    height:fit-content;
-    align-self: center;
 }
 
 #presentacion-contenedor{
