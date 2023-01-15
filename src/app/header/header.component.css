@@ -1,1 +1,7 @@
 
+@media (max-width:900px) {
+    #header-btn{
+        display: flex;
+        flex-direction: column;
+    }
+}

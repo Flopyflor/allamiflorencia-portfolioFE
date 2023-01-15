@@ -44,5 +44,6 @@ button:hover{
 @media (max-width:900px) {
     #presentacion-texto{
         text-align: center;
+        margin: 5px;
     }
 }
